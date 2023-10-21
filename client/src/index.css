@@ -1,0 +1,171 @@
+#logo_img {
+    margin-left: 2%;
+}
+
+.headerImg {
+    display: inline-flex;
+}
+
+.login_btn {
+    background: transparent;
+    border: none;
+    color: #212529;
+    font-weight: bold
+}
+
+.custom-nav .nav-link {
+    color: #212529 !important;
+    font-weight: bold;
+}
+
+.custom-nav .nav-link.active {
+    border-bottom-color: #3f88b7;
+    border-width: medium;
+}
+
+.custom-box {
+    color: #3f88b7;
+}
+
+.cont-num {
+    margin-top: 5.5%;
+    font-weight: bold;
+}
+
+.count-number{
+    font-size: 45px;
+}
+
+.count-text{
+    font-size: 18px;
+}
+
+.beneficii {
+    background-color: #212529;
+    height: 15vh;
+    font-size: 18px;
+    text-align: left;
+    border-radius: 7px;
+}
+
+.bordura {
+    border-left: 2px solid white;
+    padding-left: 15px;
+}
+
+.mobil {
+    margin-top: 2%;
+}
+
+.btext {
+    color: white;
+    font-weight: bold;
+}
+
+.main_title {
+    margin: 5% 0 1% 0;
+}
+
+.welcome-text-box {
+    margin: 2% 6.5%;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #212529;
+    color: white;
+    padding: 13px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}
+
+.calc-range {
+    accent-color: #212529;
+    width: 100%;
+}
+
+.calc-cmp {
+    margin-bottom: 7%;
+}
+
+.calc-input-avans {
+    width: 135px;
+}
+
+.calc-input-termen {
+    width: 120px;
+}
+
+.calc-input-price {
+    width: 150px;
+}
+
+.calc-left-text {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.calc-right-text {
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.calc-input {
+    font-size: 22px;
+    font-weight: bold;
+    color: #212529
+}
+
+.leasing-calc {
+    display: flex;
+    padding: 2%;
+    border-radius: 10px;
+    border: solid;
+    margin-right: 44%;
+}
+
+.calc-cmp-drop {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    width: 121%;
+    color: #212529
+}
+
+.month-pay {
+    margin-left: 15%;
+    margin-bottom: 0;
+}
+
+.month-pay-pr {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.month-pay-in {
+    font-size: 17px;
+}
+
+.month-pay-note {
+    margin-top: 15px;
+}
+
+.calc-val {
+    width: 120%;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #eaeaea;
+    border-radius: 5px;
+    height: 20px;
+}
