@@ -14,13 +14,13 @@ function Header() {
             <div>
                 <Nav fill variant="tabs" defaultActiveKey={activeKey} className="custom-nav">
                     <Nav.Item>
-                        <Nav.Link href="/home">Despre Leasing</Nav.Link>
+                        <Nav.Link href="/">Despre Leasing</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/vehicles">Autoturisme</Nav.Link>
+                        <Nav.Link href="/cars">Autoturisme</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="link-2">Imobil</Nav.Link>
+                        <Nav.Link href="/apartments">Imobil</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link eventKey="link-3">Tehnică Agricolă</Nav.Link>

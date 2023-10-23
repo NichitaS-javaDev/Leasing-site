@@ -6,7 +6,8 @@
     display: inline-flex;
 }
 
-.login_btn {
+.login_btn,
+.card-btn{
     background: transparent;
     border: none;
     color: #212529;
@@ -168,4 +169,27 @@ footer {
     background: #eaeaea;
     border-radius: 5px;
     height: 20px;
+}
+
+.vehicle-card,
+.apartments-card{
+    display: inline-block;
+}
+
+.vehicle-card-link,
+.apartments-card-link{
+    display: inline-block;
+    margin: 2%;
+    width: 19rem;
+}
+
+.vehicles-box,
+.apartments-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+}
+
+.card-text-tl{
+    font-weight: bold;
 }

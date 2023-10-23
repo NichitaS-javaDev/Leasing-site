@@ -1,8 +1,5 @@
 import React from "react";
-import {Button, Image, Nav} from "react-bootstrap";
-import logo from "../images/logo.png";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import {Image} from "react-bootstrap";
 import headImg from "../images/leasing-head-img.jpeg";
 import LeasingCalc from "../components/LeasingCalc";
 import Header from "../components/Header";
@@ -10,31 +7,6 @@ import Header from "../components/Header";
 function MainPage() {
     return (
         <React.Fragment>
-            {/*<div>*/}
-            {/*    <Nav fill variant="tabs" defaultActiveKey="/home" className="custom-nav">*/}
-            {/*        <Nav.Item>*/}
-            {/*            <Nav.Link href="/home">Despre Leasing</Nav.Link>*/}
-            {/*        </Nav.Item>*/}
-            {/*        <Nav.Item>*/}
-            {/*            <Nav.Link href={"/auto"} eventKey="/auto">Autoturisme</Nav.Link>*/}
-            {/*        </Nav.Item>*/}
-            {/*        <Nav.Item>*/}
-            {/*            <Nav.Link eventKey="link-2">Imobil</Nav.Link>*/}
-            {/*        </Nav.Item>*/}
-            {/*        <Nav.Item>*/}
-            {/*            <Nav.Link eventKey="link-3">Tehnică Agricolă</Nav.Link>*/}
-            {/*        </Nav.Item>*/}
-            {/*    </Nav>*/}
-            {/*</div>*/}
-            {/*<div className={'headerImg d-flex align-items-center justify-content-between'}>*/}
-            {/*    <Image id={'logo_img'} height={'90vh'} width={'300vh'} src={logo}></Image>*/}
-            {/*    <div className="d-flex align-items-end" style={{marginRight: "5%"}}>*/}
-            {/*        <Button variant="light" size="lg" className={"login_btn"}>*/}
-            {/*            <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: '10px'}}/>*/}
-            {/*            Sign In*/}
-            {/*        </Button>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             <Header/>
             <div>
                 <Image id={'logo_img'} width={'95%'} src={headImg}></Image>
@@ -113,17 +85,10 @@ function MainPage() {
                         să
                         obții finanțarea de care ai nevoie pentru a-ți îndeplini obiectivele.
                     </li>
-                    <br/><br/>
-
+                    <br/>
                     Află mai multe despre serviciile noastre de leasing și calculează oferta ta personalizată chiar
                     acum!<br/><br/>
-
-                    {/*<Button variant="dark" size="lg">*/}
-                    {/*    <FontAwesomeIcon icon={faCalculator} style={{marginRight: '10px'}}/>*/}
-                    {/*    Calculator Leasing*/}
-                    {/*</Button>*/}
                     <LeasingCalc/>
-
                     <br/>Nu ezita să ne contactezi pentru orice întrebări sau asistență. Suntem aici pentru tine!
                 </p>
             </div>
