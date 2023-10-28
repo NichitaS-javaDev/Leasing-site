@@ -32,7 +32,7 @@ const LeasingCalc = () => {
         const monthlyInterestRate = (interestRate / 100) / 12;
         const monthlyPayment = (principal * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanTerm));
         setMonthlyPayment(monthlyPayment.toFixed(2));
-        setInsurance((carPrice * 0.3).toFixed(2));
+        setInsurance((carPrice * 0.034).toFixed(2));
     }
 
     return (

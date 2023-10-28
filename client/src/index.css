@@ -7,7 +7,8 @@
 }
 
 .login_btn,
-.card-btn{
+.card-btn,
+.admin_btn{
     background: transparent;
     border: none;
     color: #212529;
@@ -172,24 +173,59 @@ footer {
 }
 
 .vehicle-card,
-.apartments-card{
-    display: inline-block;
+.apartment-card,
+.farmEquipment-card,
+.add-card{
+    /*display: inline-block;*/
+    margin: 2%;
+}
+
+.add-card{
+    align-content: center;
+    cursor: pointer;
 }
 
 .vehicle-card-link,
-.apartments-card-link{
+.apartment-card-link,
+.farmEquipment-card-link,
+.add-card{
     display: inline-block;
     margin: 2%;
-    width: 19rem;
+    width: 18.6rem;
+    color: #212529;
+    text-decoration: none;
 }
 
 .vehicles-box,
-.apartments-box{
+.apartments-box,
+.farmEquipments-box{
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: left;
     margin-top: 1%;
+    margin-left: 2.8%;
 }
 
 .card-text-tl{
     font-weight: bold;
+}
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+.h-custom {
+    height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+    .h-custom {
+        height: 100%;
+    }
+}
+
+.sign-in-with-icon{
+    width: 1%;
 }

@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
-import {getAllCars} from "../api/api";
+import {getAllCars, getCurrentUserRole} from "../api/api";
 import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
+import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
+import CreateACard from "../components/CreateACard";
 
 function CarsPage() {
     const [cars, setCars] = useState([]);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         const fetchCars = async () => {
@@ -17,17 +20,27 @@ function CarsPage() {
             }
         };
 
+        const fetchCurrentUserRole = async () => {
+            try {
+                const response = await getCurrentUserRole();
+                setIsAdmin(response.data.role === 'admin');
+            } catch (error) {
+                // TODO: Handle error
+            }
+        };
+
         fetchCars();
+        fetchCurrentUserRole()
     }, []);
 
     return (
         <React.Fragment>
             <Header/>
-            <div className={"vehicles-main-box"}>
+            {/*<div className={"vehicles-main-box"}>*/}
                 <div className={"vehicles-box"}>
                     {cars.map((car) => (
-                        <Link to={`/details/${car._id}`} className={"vehicle-card-link"}>
-                            <Card className={"vehicle-card"}>
+                        <Card className={"vehicle-card"}>
+                            <Link to={`/details/${car._id}`} className={"vehicle-card-link"}>
                                 <Card.Img variant="top" src={`data:image/jpeg;base64,${car.img}`}/>
                                 <Card.Body>
                                     <Card.Title><span className={"card-text-tl"}>{car.model}</span></Card.Title>
@@ -40,14 +53,19 @@ function CarsPage() {
                                         <div><span className={"card-text-tl"}>An fabricatie:</span> {car.year}</div>
                                         <div><span className={"card-text-tl"}>Culoare:</span> {car.color}</div>
                                         <div><span
-                                            className={"card-text-tl"}>Pret: {car.price.toLocaleString('en-US')}</span>
+                                            className={"card-text-tl"}>Pret: {car.price.toLocaleString('en-US')} EUR</span>
                                         </div>
+
+                                        {/*{*/}
+                                        {/*    isAdmin ? <div>Admin</div> : <div>Not Admin</div>*/}
+                                        {/*}*/}
                                     </Card.Text>
                                 </Card.Body>
-                            </Card>
-                        </Link>
+                            </Link>
+                            {isAdmin && <UpdateDeleteACmp id={car._id}/>}
+                        </Card>
                     ))}
-                </div>
+                {isAdmin && <CreateACard/>}
                 <div className={"filter-box"}>
 
                 </div>
