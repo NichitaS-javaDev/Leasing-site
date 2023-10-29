@@ -1,33 +1,64 @@
 import {Button, Form, Modal} from "react-bootstrap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {createCar} from "../api/api";
 
 export default function CreateCarAModal(props) {
+    useEffect(() => {
+        if (!props.show) {
+            setCarDetails({
+                model: '',
+                description: '',
+                transmission: '',
+                fuel: '',
+                price: 0,
+                year: 0,
+                color: '',
+                img: '',
+            });
+        }
+    }, [props.show]);
+
     const [carDetails, setCarDetails] = useState({
         model: '',
         description: '',
         transmission: '',
         fuel: '',
-        price: '',
-        year: '',
+        price: 0,
+        year: 0,
         color: '',
         img: '',
     });
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setCarDetails({ ...carDetails, [name]: value });
+        const {name, value} = e.target;
+        setCarDetails({...carDetails, [name]: value});
     };
 
-    const handleCreateCar = () => {
-        console.log('Creating car with details:', carDetails);
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            const base64String = reader.result.split(',')[1];
+            setCarDetails({...carDetails, img: base64String});
+        };
+
+        reader.readAsDataURL(file);
+    };
+
+    const handleCreateCar = async () => {
+        try {
+            await createCar(carDetails);
+        } catch (error) {
+
+        }
         props.onHide();
     };
 
     return (
-        <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
-                <Form>
+        <Modal {...props} size='lg' aria-labelledby="contained-modal-title-center" centered>
+            <Form>
+                <Modal.Body>
                     <Form.Group controlId="model">
                         <Form.Label className={'ms-1'}>Model</Form.Label>
                         <Form.Control
@@ -36,13 +67,14 @@ export default function CreateCarAModal(props) {
                             name="model"
                             value={carDetails.model}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="description">
                         <Form.Label className={'ms-1'}>Description</Form.Label>
                         <Form.Control
                             as="textarea"
-                            rows={2}
+                            rows={1}
                             placeholder="Enter car description"
                             name="description"
                             value={carDetails.description}
@@ -82,7 +114,7 @@ export default function CreateCarAModal(props) {
                     <Form.Group controlId="year">
                         <Form.Label className={'ms-1'}>Year</Form.Label>
                         <Form.Control
-                            type="text"
+                            type="number"
                             placeholder="Enter car year"
                             name="year"
                             value={carDetails.year}
@@ -100,25 +132,23 @@ export default function CreateCarAModal(props) {
                         />
                     </Form.Group>
                     <Form.Group controlId="img">
-                        <Form.Label className={'ms-1'}>Image URL</Form.Label>
+                        <Form.Label className={'ms-1'}>Image</Form.Label>
                         <Form.Control
-                            type="text"
-                            placeholder="Enter car image URL"
-                            name="img"
-                            value={carDetails.img}
-                            onChange={handleInputChange}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
                         />
                     </Form.Group>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant='outline-danger' onClick={props.onHide}>
-                    Cancel
-                </Button>
-                <Button variant="outline-success" onClick={handleCreateCar}>
-                    Save item
-                </Button>
-            </Modal.Footer>
+                </Modal.Body>
+                <Modal.Footer style={{borderTop: "none", paddingTop: 0}}>
+                    <Button variant='outline-danger' onClick={props.onHide}>
+                        Cancel
+                    </Button>
+                    <Button type={"submit"} variant="outline-success" onSubmit={handleCreateCar}>
+                        Save item
+                    </Button>
+                </Modal.Footer>
+            </Form>
         </Modal>
     );
 }

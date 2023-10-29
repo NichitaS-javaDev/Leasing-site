@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
+const helmet = require("helmet")
 const unauthorizedRouter = require('./routes/unauthorized')
 const authorizedRouter = require('./routes/authorized')
 const User = require("./model/User");
@@ -15,9 +16,8 @@ const secret = "3f1a8e678a4b6a4dc925c18c9a4c2b4a"
 const app = express();
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
+app.use(express.json({limit: '1mb'}));
+app.use(express.urlencoded({ limit: '1mb', extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -29,6 +29,7 @@ app.use(session({
     saveUninitialized: false
 }));
 app.use(cookieParser(secret));
+app.use(helmet())
 
 app.use('/', unauthorizedRouter);
 app.use('/secure', authorizedRouter)
@@ -47,7 +48,7 @@ app.post('/login', async (req, res) => {
         return res.status(401).json({ message: 'Invalid username or password' });
     }
 
-    req.session.user = { id: user._id, username: user.username, role: user.role};
+    req.session.user = {role: user.role};
 
     res.send();
 });

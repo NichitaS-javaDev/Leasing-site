@@ -17,7 +17,6 @@ router.get('/cars', async function(req, res, next) {
         res.status(500).json({ message: error.message });
     }
 });
-// <----- CARS END ----->
 
 
 // <----- APARTMENTS ----->
@@ -29,7 +28,6 @@ router.get('/apartments', async function(req, res, next) {
         res.status(500).json({ message: error.message });
     }
 });
-// <----- APARTMENTS END ----->
 
 
 // <----- FARM EQUIPMENT ----->
@@ -41,6 +39,5 @@ router.get('/farmEquipment', async function(req, res, next) {
         res.status(500).json({ message: error.message });
     }
 });
-// <----- FARM EQUIPMENT END ----->
 
 module.exports = router

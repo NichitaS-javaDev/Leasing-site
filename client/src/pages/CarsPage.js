@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 
-function CarsPage() {
+export default function CarsPage() {
     const [cars, setCars] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -73,5 +73,3 @@ function CarsPage() {
         </React.Fragment>
     )
 }
-
-export default CarsPage

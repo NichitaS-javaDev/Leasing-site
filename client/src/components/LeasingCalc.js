@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const LeasingCalc = () => {
+export default function LeasingCalc() {
     const [item, setItem] = useState('auto');
     const [carPrice, setCarPrice] = useState(50000);
     const [downPayment, setDownPayment] = useState(Math.round(carPrice * 0.2));
@@ -38,7 +38,6 @@ const LeasingCalc = () => {
     return (
         <div className={"leasing-calc"}>
             <div className={"calc-val"}>
-                {/*<h2>Leasing Calculator</h2>*/}
                 <div className={"calc-cmp-drop"}>
                     <label>
                         <select value={item} onChange={handleItemChange} className={"calc-cmp-drop"}>
@@ -156,5 +155,3 @@ const LeasingCalc = () => {
         </div>
     );
 }
-
-export default LeasingCalc;

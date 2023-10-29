@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 
-function ApartmentsPage() {
+export default function ApartmentsPage() {
     const [apartments, setApartments] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -70,5 +70,3 @@ function ApartmentsPage() {
         </React.Fragment>
     )
 }
-
-export default ApartmentsPage

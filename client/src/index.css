@@ -176,7 +176,6 @@ footer {
 .apartment-card,
 .farmEquipment-card,
 .add-card{
-    /*display: inline-block;*/
     margin: 2%;
 }
 
@@ -190,7 +189,6 @@ footer {
 .farmEquipment-card-link,
 .add-card{
     display: inline-block;
-    margin: 2%;
     width: 18.6rem;
     color: #212529;
     text-decoration: none;
@@ -217,9 +215,11 @@ footer {
     height: 1px;
     background: #eee;
 }
+
 .h-custom {
     height: calc(100% - 73px);
 }
+
 @media (max-width: 450px) {
     .h-custom {
         height: 100%;
@@ -228,4 +228,8 @@ footer {
 
 .sign-in-with-icon{
     width: 1%;
+}
+
+input[type="file"]::file-selector-button{
+    background-color: #e8e8e8;
 }

@@ -3,7 +3,7 @@ import loginImg from "../images/login-img.webp"
 import {Image} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
-function LoginPage() {
+export default function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -42,9 +42,6 @@ function LoginPage() {
                                 <div
                                     className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                                     <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                                    {/*<button type="button" className="btn btn-primary btn-floating mx-1">*/}
-                                    {/*    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>*/}
-                                    {/*</button>*/}
                                     <span className={"mx-1"}>
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35"
                                          viewBox="0 0 48 48">
@@ -58,12 +55,6 @@ function LoginPage() {
                                         fill="#fff"
                                         d="M26.707,29.301h5.176l0.813-5.258h-5.989v-2.874c0-2.184,0.714-4.121,2.757-4.121h3.283V12.46 c-0.577-0.078-1.797-0.248-4.102-0.248c-4.814,0-7.636,2.542-7.636,8.334v3.498H16.06v5.258h4.948v14.452 C21.988,43.9,22.981,44,24,44c0.921,0,1.82-0.084,2.707-0.204V29.301z"></path>
                                     </svg></span>
-                                    {/*<button type="button" className="btn btn-primary btn-floating mx-1">*/}
-                                    {/*    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512">*/}
-                                    {/*        <path*/}
-                                    {/*            d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>*/}
-                                    {/*    </svg>*/}
-                                    {/*</button>*/}
                                     <span className={"mx-1"}>
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35"
                                          viewBox="0 0 48 48">
@@ -76,12 +67,6 @@ function LoginPage() {
                                         fill="#1976D2"
                                         d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
                                     </svg></span>
-                                    {/*<button type="button" className="btn btn-dark btn-floating mx-1">*/}
-                                    {/*    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">*/}
-                                    {/*        <path*/}
-                                    {/*            d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>*/}
-                                    {/*    </svg>*/}
-                                    {/*</button>*/}
                                     <span className={"mx-1"}>
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35"
                                          viewBox="0 0 48 48">
@@ -128,7 +113,6 @@ function LoginPage() {
                                             style={{paddingLeft: "2.5rem", paddingRight: "2.5rem"}}>Login
                                     </button>
                                 </div>
-
                             </form>
                         </div>
                     </div>
@@ -137,5 +121,3 @@ function LoginPage() {
         </React.Fragment>
     )
 }
-
-export default LoginPage;

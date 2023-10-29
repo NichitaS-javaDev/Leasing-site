@@ -2,7 +2,13 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3005';
 
-const getAllCars = async () => {
+// const calculatePayloadSize = (data) => {
+//     const dataSizeInBytes = new Blob([JSON.stringify(data)]).size;
+//     return dataSizeInBytes / 1024; //KB
+// };
+
+// <----- CARS ----->
+export const getAllCars = async () => {
     try {
         return await axios.get(`${BASE_URL}/cars`);
     } catch (error) {
@@ -11,10 +17,25 @@ const getAllCars = async () => {
     }
 };
 
-const deleteCar = async (id) => {
+export const createCar = async (carDetails) => {
     try {
-        return await axios.delete(`${BASE_URL}/secure/cars/${id}`,{
-            withCredentials:true
+        return await axios.post(`${BASE_URL}/secure/cars`, {
+                carDetails
+            },
+            {
+                withCredentials: true
+            }
+        );
+    } catch (error) {
+        console.error('Error creating car:', error);
+        throw error;
+    }
+};
+
+export const deleteCar = async (id) => {
+    try {
+        return await axios.delete(`${BASE_URL}/secure/cars/${id}`, {
+                withCredentials: true
             }
         );
     } catch (error) {
@@ -23,7 +44,9 @@ const deleteCar = async (id) => {
     }
 };
 
-const getAllApartments = async () => {
+
+// <----- APARTMENTS ----->
+export const getAllApartments = async () => {
     try {
         return await axios.get(`${BASE_URL}/apartments`);
     } catch (error) {
@@ -32,7 +55,9 @@ const getAllApartments = async () => {
     }
 };
 
-const getAllFarmEquipment = async () => {
+
+// <----- FARM EQUIPMENT ----->
+export const getAllFarmEquipment = async () => {
     try {
         return await axios.get(`${BASE_URL}/farmEquipment`);
     } catch (error) {
@@ -41,7 +66,9 @@ const getAllFarmEquipment = async () => {
     }
 };
 
-const getCurrentUserRole = async () => {
+
+// <----- USER ----->
+export const getCurrentUserRole = async () => {
     try {
         return await axios.get(`${BASE_URL}/currentUserRole`, {
             withCredentials: true
@@ -52,7 +79,7 @@ const getCurrentUserRole = async () => {
     }
 };
 
-const getIsAuthorized = async () => {
+export const getIsAuthorized = async () => {
     try {
         return await axios.get(`${BASE_URL}/isAuthorized`, {
             withCredentials: true
@@ -63,15 +90,14 @@ const getIsAuthorized = async () => {
     }
 };
 
-const signOut = async () => {
+export const signOut = async () => {
     try {
         return await axios.get(`${BASE_URL}/logout`, {
             withCredentials: true
         })
-    } catch (error){
+    } catch (error) {
         console.error('Error sign out:', error);
         throw error;
     }
 }
 
-export { getAllCars, getAllApartments, getAllFarmEquipment, getCurrentUserRole, getIsAuthorized, signOut , deleteCar};

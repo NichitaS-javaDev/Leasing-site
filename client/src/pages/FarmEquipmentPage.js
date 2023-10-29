@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 
-function FarmEquipmentPage() {
+export default function FarmEquipmentPage() {
     const [farmEquipments, setFarmEquipment] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -72,5 +72,3 @@ function FarmEquipmentPage() {
         </React.Fragment>
     )
 }
-
-export default FarmEquipmentPage

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const farmEquipmentSchema = new mongoose.Schema({
+    _id: String,
     model: String,
     weight: String,
     engine: String,

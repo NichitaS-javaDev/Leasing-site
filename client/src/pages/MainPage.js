@@ -4,7 +4,7 @@ import headImg from "../images/leasing-head-img.jpeg";
 import LeasingCalc from "../components/LeasingCalc";
 import Header from "../components/Header";
 
-function MainPage() {
+export default function MainPage() {
     return (
         <React.Fragment>
             <Header/>
@@ -96,5 +96,3 @@ function MainPage() {
         </React.Fragment>
     )
 }
-
-export default MainPage;

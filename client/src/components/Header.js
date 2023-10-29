@@ -6,7 +6,7 @@ import {faRightToBracket, faRightFromBracket} from "@fortawesome/free-solid-svg-
 import {useLocation, useNavigate} from "react-router-dom";
 import {getIsAuthorized, signOut} from "../api/api";
 
-function Header() {
+export default function Header() {
     const location = useLocation();
     const activeKey = location.pathname;
     const navigate = useNavigate();
@@ -74,5 +74,3 @@ function Header() {
         </React.Fragment>
     )
 }
-
-export default Header
