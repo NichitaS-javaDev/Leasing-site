@@ -55,7 +55,7 @@ export default function LeasingCalc() {
                             value={carPrice}
                             min="5000"
                             max="100000"
-                            step={1000}
+                            step="100"
                             onChange={(e) => {
                                 setCarPrice(e.target.value);
                                 setDownPayment(Math.round(e.target.value * 0.2))
@@ -71,7 +71,7 @@ export default function LeasingCalc() {
                         type="range"
                         min="5000"
                         max="100000"
-                        step="1000"
+                        step="100"
                         value={carPrice}
                         onChange={(e) => {
                             setCarPrice(e.target.value);

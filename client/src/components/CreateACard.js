@@ -1,11 +1,33 @@
-import {Button, Card} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import CreateCarAModal from "./CreateCarAModal";
+import {useLocation} from "react-router-dom";
+import {RoutesEnum} from "./RoutesEnum";
+import CreateApartmentAModal from "./CreateApartmentAModal";
 
 export default function CreateACard() {
     const [modalShow, setModalShow] = useState(false);
+    const location = useLocation();
+
+    function getModal() {
+        const modalProps = {
+            show: modalShow,
+            onHide: () => setModalShow(false)
+        }
+
+        switch (location.pathname) {
+            case RoutesEnum.cars:
+                return <CreateCarAModal {...modalProps}/>
+            case RoutesEnum.apartments:
+                return <CreateApartmentAModal {...modalProps}/>
+            case RoutesEnum.farmEquipment:
+                console.log('farm modal')
+                break;
+            default:
+        }
+    }
 
     return (
         <>
@@ -13,10 +35,7 @@ export default function CreateACard() {
                   onClick={() => setModalShow(true)}>
                 <FontAwesomeIcon icon={faPlus} style={{fontSize: '3em'}}/>
             </Card>
-
-            <CreateCarAModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}/>
+            {getModal()}
         </>
     )
 

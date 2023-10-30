@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {createCar} from "../api/api";
 
 export default function CreateCarAModal(props) {
+    console.log(props)
     useEffect(() => {
         if (!props.show) {
             setCarDetails({
@@ -13,7 +14,7 @@ export default function CreateCarAModal(props) {
                 price: 0,
                 year: 0,
                 color: '',
-                img: '',
+                img: ''
             });
         }
     }, [props.show]);
@@ -26,7 +27,7 @@ export default function CreateCarAModal(props) {
         price: 0,
         year: 0,
         color: '',
-        img: '',
+        img: ''
     });
 
     const handleInputChange = (e) => {
@@ -50,14 +51,14 @@ export default function CreateCarAModal(props) {
         try {
             await createCar(carDetails);
         } catch (error) {
-
         }
         props.onHide();
+        window.location.reload();
     };
 
     return (
         <Modal {...props} size='lg' aria-labelledby="contained-modal-title-center" centered>
-            <Form>
+            <Form onSubmit={handleCreateCar}>
                 <Modal.Body>
                     <Form.Group controlId="model">
                         <Form.Label className={'ms-1'}>Model</Form.Label>
@@ -79,6 +80,7 @@ export default function CreateCarAModal(props) {
                             name="description"
                             value={carDetails.description}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="transmission">
@@ -89,6 +91,7 @@ export default function CreateCarAModal(props) {
                             name="transmission"
                             value={carDetails.transmission}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="fuel">
@@ -99,6 +102,7 @@ export default function CreateCarAModal(props) {
                             name="fuel"
                             value={carDetails.fuel}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="price">
@@ -109,6 +113,7 @@ export default function CreateCarAModal(props) {
                             name="price"
                             value={carDetails.price}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="year">
@@ -119,6 +124,7 @@ export default function CreateCarAModal(props) {
                             name="year"
                             value={carDetails.year}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="color">
@@ -129,6 +135,7 @@ export default function CreateCarAModal(props) {
                             name="color"
                             value={carDetails.color}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="img">
@@ -137,6 +144,7 @@ export default function CreateCarAModal(props) {
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
+                            required
                         />
                     </Form.Group>
                 </Modal.Body>
@@ -144,7 +152,7 @@ export default function CreateCarAModal(props) {
                     <Button variant='outline-danger' onClick={props.onHide}>
                         Cancel
                     </Button>
-                    <Button type={"submit"} variant="outline-success" onSubmit={handleCreateCar}>
+                    <Button type={"submit"} variant="outline-success">
                         Save item
                     </Button>
                 </Modal.Footer>

@@ -4,9 +4,9 @@ mongoose.set("strictQuery", false);
 
 mongoose.connect('mongodb://127.0.0.1:27017/leasingSite')
     .then(()=>{
-        console.log(":: MongoDB connected")
+        console.info(":: MongoDB connected")
     },()=>{
-        console.log("MongoDB connection error")
+        console.error("MongoDB connection error")
     });
 
 const db = mongoose.connection;

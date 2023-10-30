@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import loginImg from "../images/login-img.webp"
 import {Image} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import {login} from "../api/api";
+import {RoutesEnum} from "../components/RoutesEnum";
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -10,17 +12,10 @@ export default function LoginPage() {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch('http://localhost:3005/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({username, password}),
-            });
+            const response = await login(username, password);
 
-            if (response.ok) {
-                navigate('/')
+            if (response.status === 200) {
+                navigate(RoutesEnum.index)
             } else {
                 console.error('Error logging in:', response.statusText);
             }

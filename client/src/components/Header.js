@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faRightToBracket, faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getIsAuthorized, signOut} from "../api/api";
+import {RoutesEnum} from "./RoutesEnum";
 
 export default function Header() {
     const location = useLocation();
@@ -26,7 +27,7 @@ export default function Header() {
     }, []);
 
     const handleSignInClick = () => {
-        navigate('/login');
+        navigate(RoutesEnum.login);
     }
 
     const handleSignOutClick = async () => {
@@ -43,16 +44,16 @@ export default function Header() {
             <div>
                 <Nav fill variant="tabs" defaultActiveKey={activeKey} className="custom-nav">
                     <Nav.Item>
-                        <Nav.Link href="/">Despre Leasing</Nav.Link>
+                        <Nav.Link href={`${RoutesEnum.index}`}>Despre Leasing</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/cars">Autoturisme</Nav.Link>
+                        <Nav.Link href={`${RoutesEnum.cars}`}>Autoturisme</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/apartments">Imobil</Nav.Link>
+                        <Nav.Link href={`${RoutesEnum.apartments}`}>Imobil</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/farmEquipment">Tehnică Agricolă</Nav.Link>
+                        <Nav.Link href={`${RoutesEnum.farmEquipment}`}>Tehnică Agricolă</Nav.Link>
                     </Nav.Item>
                 </Nav>
             </div>

@@ -55,6 +55,32 @@ export const getAllApartments = async () => {
     }
 };
 
+export const createApartment = async (apartmentDetails) => {
+    try {
+        return await axios.post(`${BASE_URL}/secure/apartments`, {
+                apartmentDetails
+            },
+            {
+                withCredentials: true
+            }
+        );
+    } catch (error) {
+        console.error('Error creating apartment:', error);
+        throw error;
+    }
+};
+
+export const deleteApartment = async (id) => {
+    try {
+        return await axios.delete(`${BASE_URL}/secure/apartments/${id}`, {
+                withCredentials: true
+            }
+        );
+    } catch (error) {
+        console.error('Error deleting apartment:', error);
+        throw error;
+    }
+};
 
 // <----- FARM EQUIPMENT ----->
 export const getAllFarmEquipment = async () => {
@@ -68,6 +94,20 @@ export const getAllFarmEquipment = async () => {
 
 
 // <----- USER ----->
+export const login = async (username, password) => {
+    try {
+        return await axios.post(`${BASE_URL}/login`, {
+                username, password
+            },
+            {
+                withCredentials: true
+            });
+    } catch (error) {
+        console.error('Login error:', error);
+        throw error
+    }
+}
+
 export const getCurrentUserRole = async () => {
     try {
         return await axios.get(`${BASE_URL}/currentUserRole`, {

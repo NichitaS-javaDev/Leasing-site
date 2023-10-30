@@ -8,17 +8,18 @@ import CarsPage from "./pages/CarsPage";
 import ApartmentsPage from "./pages/ApartmentsPage";
 import FarmEquipmentPage from "./pages/FarmEquipmentPage";
 import LoginPage from "./pages/LoginPage";
+import {RoutesEnum} from "./components/RoutesEnum";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.Fragment>
         <BrowserRouter>
             <Routes>
-                <Route path={"/"} element={<MainPage/>}></Route>
-                <Route path={"/cars"} element={<CarsPage/>}></Route>
-                <Route path={"/apartments"} element={<ApartmentsPage/>}></Route>
-                <Route path={"/farmEquipment"} element={<FarmEquipmentPage/>}></Route>
-                <Route path={"/login"} element={<LoginPage/>}></Route>
+                <Route path={`${RoutesEnum.index}`} element={<MainPage/>}></Route>
+                <Route path={`${RoutesEnum.cars}`} element={<CarsPage/>}></Route>
+                <Route path={`${RoutesEnum.apartments}`} element={<ApartmentsPage/>}></Route>
+                <Route path={`${RoutesEnum.farmEquipment}`} element={<FarmEquipmentPage/>}></Route>
+                <Route path={`${RoutesEnum.login}`} element={<LoginPage/>}></Route>
             </Routes>
         </BrowserRouter>
     </React.Fragment>
