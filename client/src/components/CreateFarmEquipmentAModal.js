@@ -1,37 +1,37 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {createApartment} from "../api/api";
+import {createApartment, createFarmEquipment} from "../api/api";
 
-export default function CreateApartmentAModal(props) {
+export default function CreateFarmEquipmentAModal(props) {
     useEffect(() => {
         if (!props.show) {
-            setApartmentDetails({
-                city: '',
-                sector: '',
-                surface: '',
-                rooms: '',
-                condition: '',
-                description: '',
+            setFarmEquipmentDetails({
+                model: '',
+                weight: '',
+                engine: '',
+                fuelTank: '',
+                power: '',
+                payloadCapacity: '',
                 price: 0,
                 img: ''
             });
         }
     }, [props.show]);
 
-    const [apartmentDetails, setApartmentDetails] = useState({
-        city: '',
-        sector: '',
-        surface: '',
-        rooms: '',
-        condition: '',
-        description: '',
+    const [farmEquipmentDetails, setFarmEquipmentDetails] = useState({
+        model: '',
+        weight: '',
+        engine: '',
+        fuelTank: '',
+        power: '',
+        payloadCapacity: '',
         price: 0,
         img: ''
     });
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        setApartmentDetails({...apartmentDetails, [name]: value});
+        setFarmEquipmentDetails({...farmEquipmentDetails, [name]: value});
     };
 
     const handleImageChange = (e) => {
@@ -40,7 +40,7 @@ export default function CreateApartmentAModal(props) {
 
         reader.onload = () => {
             const base64String = reader.result.split(',')[1];
-            setApartmentDetails({...apartmentDetails, img: base64String});
+            setFarmEquipmentDetails({...farmEquipmentDetails, img: base64String});
         };
 
         reader.readAsDataURL(file);
@@ -48,7 +48,7 @@ export default function CreateApartmentAModal(props) {
 
     const handleCreateApartment = async () => {
         try {
-            await createApartment(apartmentDetails);
+            await createFarmEquipment(farmEquipmentDetails);
         } catch (error) {
         }
         props.onHide();
@@ -59,71 +59,66 @@ export default function CreateApartmentAModal(props) {
         <Modal {...props} size='lg' aria-labelledby="contained-modal-title-center" centered>
             <Form onSubmit={handleCreateApartment}>
                 <Modal.Body>
-                    <Form.Group controlId="description">
-                        <Form.Label className={'ms-1'}>Descriere</Form.Label>
+                    <Form.Group controlId="model">
+                        <Form.Label className={'ms-1'}>Model</Form.Label>
                         <Form.Control
-                            as={"textarea"}
-                            rows={1}
-                            placeholder="Introduceti descrierea"
-                            name="description"
-                            value={apartmentDetails.description}
+                            type={'text'}
+                            placeholder="Introduceti modelul"
+                            name="model"
+                            value={farmEquipmentDetails.model}
                             onChange={handleInputChange}
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="city">
-                        <Form.Label className={'ms-1'}>Oras</Form.Label>
+                    <Form.Group controlId="engine">
+                        <Form.Label className={'ms-1'}>Motor</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti orasul"
-                            name="city"
-                            value={apartmentDetails.city}
+                            placeholder="Introduceti specificatia motorului"
+                            name="engine"
+                            value={farmEquipmentDetails.engine}
                             onChange={handleInputChange}
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="sector">
-                        <Form.Label className={'ms-1'}>Sector</Form.Label>
+                    <Form.Group controlId="power">
+                        <Form.Label className={'ms-1'}>Putere</Form.Label>
                         <Form.Control
                             type='text'
-                            placeholder="Introduceti sectorul"
-                            name="sector"
-                            value={apartmentDetails.sector}
+                            placeholder="Introduceti puterea motorului (c.p)"
+                            name="power"
+                            value={farmEquipmentDetails.power}
                             onChange={handleInputChange}
-                            required
                         />
                     </Form.Group>
-                    <Form.Group controlId="surface">
-                        <Form.Label className={'ms-1'}>Suprafata</Form.Label>
+                    <Form.Group controlId="fuelTank">
+                        <Form.Label className={'ms-1'}>Rezervor</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti suprafata apartamentului"
-                            name="surface"
-                            value={apartmentDetails.surface}
+                            placeholder="Introduceti volumul rezervorului"
+                            name="fuelTank"
+                            value={farmEquipmentDetails.fuelTank}
                             onChange={handleInputChange}
-                            required
                         />
                     </Form.Group>
-                    <Form.Group controlId="rooms">
-                        <Form.Label className={'ms-1'}>Camere</Form.Label>
+                    <Form.Group controlId="weight">
+                        <Form.Label className={'ms-1'}>Masa proprie</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti numarul de camere"
-                            name="rooms"
-                            value={apartmentDetails.rooms}
+                            placeholder="Introduceti masa proprie"
+                            name="weight"
+                            value={farmEquipmentDetails.weight}
                             onChange={handleInputChange}
-                            required
                         />
                     </Form.Group>
-                    <Form.Group controlId="condition">
-                        <Form.Label className={'ms-1'}>Conditia</Form.Label>
+                    <Form.Group controlId="payloadCapacity">
+                        <Form.Label className={'ms-1'}>Capacitatea de incarcare</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti conditia apartamentului"
-                            name="condition"
-                            value={apartmentDetails.condition}
+                            placeholder="Introduceti capacitatea de incarcare"
+                            name="payloadCapacity"
+                            value={farmEquipmentDetails.payloadCapacity}
                             onChange={handleInputChange}
-                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="price">
@@ -132,9 +127,8 @@ export default function CreateApartmentAModal(props) {
                             type="number"
                             placeholder="Introduceti pretul"
                             name="price"
-                            value={apartmentDetails.price}
+                            value={farmEquipmentDetails.price}
                             onChange={handleInputChange}
-                            required
                         />
                     </Form.Group>
                     <Form.Group controlId="img">
@@ -143,7 +137,6 @@ export default function CreateApartmentAModal(props) {
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            required
                         />
                     </Form.Group>
                 </Modal.Body>

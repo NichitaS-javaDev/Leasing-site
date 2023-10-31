@@ -58,10 +58,10 @@ export default function FarmEquipmentPage() {
                                     <div><span
                                         className={"card-text-tl"}>Pret: {farmEquipment.price.toLocaleString('en-US')} EUR</span>
                                     </div>
-                                    {isAdmin && <UpdateDeleteACmp/>}
                                 </Card.Text>
                             </Card.Body>
                         </Link>
+                        {isAdmin && <UpdateDeleteACmp id={farmEquipment._id}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

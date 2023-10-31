@@ -92,6 +92,33 @@ export const getAllFarmEquipment = async () => {
     }
 };
 
+export const createFarmEquipment = async (farmEquipmentDetails) => {
+    try {
+        return await axios.post(`${BASE_URL}/secure/farmEquipment`, {
+                farmEquipmentDetails
+            },
+            {
+                withCredentials: true
+            }
+        );
+    } catch (error) {
+        console.error('Error creating farm equipment:', error);
+        throw error;
+    }
+};
+
+export const deleteFarmEquipment = async (id) => {
+    try {
+        return await axios.delete(`${BASE_URL}/secure/farmEquipment/${id}`, {
+                withCredentials: true
+            }
+        );
+    } catch (error) {
+        console.error('Error deleting farm equipment:', error);
+        throw error;
+    }
+};
+
 
 // <----- USER ----->
 export const login = async (username, password) => {

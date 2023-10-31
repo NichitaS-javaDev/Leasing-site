@@ -57,6 +57,7 @@ export default function Header() {
                     </Nav.Item>
                 </Nav>
             </div>
+            {activeKey === '/' ? <div></div> : <div className={'mt-2'}></div>}
             <div className={'headerImg d-flex align-items-center justify-content-between'}>
                 <Image id={'logo_img'} height={'90vh'} width={'300vh'} src={logo}></Image>
                 <div className="d-flex align-items-end" style={{marginRight: "5%"}}>

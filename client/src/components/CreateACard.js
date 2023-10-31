@@ -6,6 +6,7 @@ import CreateCarAModal from "./CreateCarAModal";
 import {useLocation} from "react-router-dom";
 import {RoutesEnum} from "./RoutesEnum";
 import CreateApartmentAModal from "./CreateApartmentAModal";
+import CreateFarmEquipmentAModal from "./CreateFarmEquipmentAModal";
 
 export default function CreateACard() {
     const [modalShow, setModalShow] = useState(false);
@@ -23,8 +24,7 @@ export default function CreateACard() {
             case RoutesEnum.apartments:
                 return <CreateApartmentAModal {...modalProps}/>
             case RoutesEnum.farmEquipment:
-                console.log('farm modal')
-                break;
+                return <CreateFarmEquipmentAModal {...modalProps}/>
             default:
         }
     }

@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {createCar} from "../api/api";
 
 export default function CreateCarAModal(props) {
-    console.log(props)
     useEffect(() => {
         if (!props.show) {
             setCarDetails({

@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {deleteApartment, deleteCar} from "../api/api";
+import {deleteApartment, deleteCar, deleteFarmEquipment} from "../api/api";
 import {useLocation} from "react-router-dom";
 import {RoutesEnum} from "./RoutesEnum";
 
@@ -19,7 +19,7 @@ export default function UpdateDeleteACmp({id}) {
                     await deleteApartment(id)
                     break;
                 case RoutesEnum.farmEquipment:
-                    await console.log('del farm')
+                    await deleteFarmEquipment(id)
                     break;
                 default:
             }
