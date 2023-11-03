@@ -1,43 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {deleteApartment, deleteCar, deleteFarmEquipment} from "../api/api";
-import {useLocation} from "react-router-dom";
-import {RoutesEnum} from "./RoutesEnum";
+import ConfirmDelete from "./ConfirmDelete";
 
 export default function UpdateDeleteACmp({id}) {
-    const location = useLocation();
+    const [showModal, setShowModal] = useState(false);
 
-    const handleDelete = async () => {
-        try {
-            switch (location.pathname) {
-                case RoutesEnum.cars:
-                    await deleteCar(id);
-                    break;
-                case RoutesEnum.apartments:
-                    await deleteApartment(id)
-                    break;
-                case RoutesEnum.farmEquipment:
-                    await deleteFarmEquipment(id)
-                    break;
-                default:
-            }
-            window.location.reload()
-
-        } catch (error) {
-            // TODO: Handle error
-        }
-    };
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
 
     return (
         <div className={'d-flex justify-content-end'}>
             <Button variant={'light'} className={'admin_btn'}>
                 <FontAwesomeIcon icon={faPenToSquare}/>
             </Button>
-            <Button variant={'light'} className={'admin_btn'} onClick={handleDelete}>
+            <Button variant={'light'} className={'admin_btn'} onClick={handleShow}>
                 <FontAwesomeIcon icon={faTrash}/>
             </Button>
+            <ConfirmDelete show={showModal} onHide={handleClose} id={id}/>
         </div>
     )
 }
