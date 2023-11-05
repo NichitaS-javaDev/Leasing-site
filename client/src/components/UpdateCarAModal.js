@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect} from "react";
-import {getCarById} from "../api/api";
+import {getCarById, updateCar} from "../api/api";
 import {useCarDetails} from "../hooks/useCarDetails";
 
 export default function UpdateCarAModal(props){
@@ -19,37 +19,18 @@ export default function UpdateCarAModal(props){
         fetchCars()
     },[props.id, setCarDetails])
 
-    // const [carDetails, setCarDetails] = useState({
-    //     model: '',
-    //     description: '',
-    //     transmission: '',
-    //     fuel: '',
-    //     price: 0,
-    //     year: 0,
-    //     color: '',
-    //     img: ''
-    // });
-    //
-    // const handleInputChange = (e) => {
-    //     const {name, value} = e.target;
-    //     setCarDetails({...carDetails, [name]: value});
-    // };
-    //
-    // const handleImageChange = (e) => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-    //
-    //     reader.onload = () => {
-    //         const base64String = reader.result.split(',')[1];
-    //         setCarDetails({...carDetails, img: base64String});
-    //     };
-    //
-    //     reader.readAsDataURL(file);
-    // };
+    const handleUpdate = async () => {
+        try {
+            await updateCar({...carDetails})
+        } catch (error) {
+
+        }
+        props.onHide();
+    }
 
     return (
         <Modal show={props.show} onHide={props.onHide} size='lg' aria-labelledby="contained-modal-title-center" centered>
-            <Form>
+            <Form onSubmit={handleUpdate}>
                 <Modal.Body>
                     <Form.Group controlId="model">
                         <Form.Label className={'ms-1'}>Model</Form.Label>
@@ -135,7 +116,6 @@ export default function UpdateCarAModal(props){
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            required
                         />
                     </Form.Group>
                 </Modal.Body>

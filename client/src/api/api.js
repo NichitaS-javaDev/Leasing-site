@@ -31,7 +31,7 @@ export const getAllCars = async () => {
 export const createCar = async (carDetails) => {
     try {
         return await axios.post(`${BASE_URL}/secure/cars`, {
-                carDetails
+                ...carDetails
             },
             {
                 withCredentials: true
@@ -42,6 +42,20 @@ export const createCar = async (carDetails) => {
         throw error;
     }
 };
+
+export const updateCar = async (carDetails) => {
+    try {
+        return await axios.put(`${BASE_URL}/secure/cars/${carDetails['_id']}`,{
+            ...carDetails
+        },
+            {
+                withCredentials:true
+            })
+    } catch (error){
+        console.error('Error updating car:', error);
+        throw error;
+    }
+}
 
 export const deleteCar = async (id) => {
     try {
