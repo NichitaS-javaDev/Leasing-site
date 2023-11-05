@@ -15,7 +15,17 @@ router.use('/', function (req, res, next) {
 
 
 // <----- CARS ----->
-router.post('/cars', async function (req, res, next) {
+router.get('/cars/:id', async function (req, res) {
+    const {id} = req.params;
+    try {
+        const car = await Car.findOne({'_id': id});
+        res.json(car);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.post('/cars', async function (req, res) {
     try {
         const {carDetails} = req.body;
 
@@ -37,7 +47,7 @@ router.post('/cars', async function (req, res, next) {
     }
 })
 
-router.delete('/cars/:id', async function (req, res, next) {
+router.delete('/cars/:id', async function (req, res) {
     const {id} = req.params;
     try {
         const car = await Car.deleteOne({'_id': id})
@@ -49,7 +59,17 @@ router.delete('/cars/:id', async function (req, res, next) {
 
 
 // <----- APARTMENTS ----->
-router.post('/apartments', async function (req, res, next) {
+router.get('/apartments/:id', async function (req, res) {
+    const {id} = req.params;
+    try {
+        const apartment = await Apartment.findOne({'_id': id});
+        res.json(apartment);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.post('/apartments', async function (req, res) {
     try {
         const {apartmentDetails} = req.body;
 
@@ -71,7 +91,7 @@ router.post('/apartments', async function (req, res, next) {
     }
 })
 
-router.delete('/apartments/:id', async function (req, res, next) {
+router.delete('/apartments/:id', async function (req, res) {
     const {id} = req.params;
     try {
         const apartment = await Apartment.deleteOne({'_id': id})
@@ -83,7 +103,17 @@ router.delete('/apartments/:id', async function (req, res, next) {
 
 
 // <----- FARM EQUIPMENT ----->
-router.post('/farmEquipment', async function (req, res, next) {
+router.get('/farmEquipment/:id', async function (req, res) {
+    const {id} = req.params;
+    try {
+        const farmEquipment = await FarmEquipment.findOne({'_id': id});
+        res.json(farmEquipment);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.post('/farmEquipment', async function (req, res) {
     try {
         const {farmEquipmentDetails} = req.body;
 
@@ -105,7 +135,7 @@ router.post('/farmEquipment', async function (req, res, next) {
     }
 })
 
-router.delete('/farmEquipment/:id', async function (req, res, next) {
+router.delete('/farmEquipment/:id', async function (req, res) {
     const {id} = req.params;
     try {
         const farmEquipment = await FarmEquipment.deleteOne({'_id': id})

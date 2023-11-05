@@ -5,20 +5,20 @@ import {RoutesEnum} from "./RoutesEnum";
 import {deleteApartment, deleteCar, deleteFarmEquipment} from "../api/api";
 import {useLocation} from "react-router-dom";
 
-export default function ConfirmDelete({show, onHide, id}) {
+export default function ConfirmDelete(props) {
     const location = useLocation();
 
     const handleDelete = async () => {
         try {
             switch (location.pathname) {
                 case RoutesEnum.cars:
-                    await deleteCar(id);
+                    await deleteCar(props.id);
                     break;
                 case RoutesEnum.apartments:
-                    await deleteApartment(id)
+                    await deleteApartment(props.id)
                     break;
                 case RoutesEnum.farmEquipment:
-                    await deleteFarmEquipment(id)
+                    await deleteFarmEquipment(props.id)
                     break;
                 default:
             }
@@ -30,7 +30,7 @@ export default function ConfirmDelete({show, onHide, id}) {
     };
 
     return (
-        <Modal show={show} onHide={onHide} size='lg' aria-labelledby="contained-modal-title-center" className={'d-flex justify-content-center'} centered>
+        <Modal show={props.show} onHide={props.onHide} size='lg' aria-labelledby="contained-modal-title-center" className={'d-flex justify-content-center'} centered>
             <Modal.Body >
                 <div className={'d-flex justify-content-center'}>
                     <FontAwesomeIcon icon={faTrashCan} style={{fontSize:'2em'}}/>
@@ -40,7 +40,7 @@ export default function ConfirmDelete({show, onHide, id}) {
                 </div>
             </Modal.Body>
             <Modal.Footer className={'border-top-0'}>
-                <Button variant={'light'} onClick={onHide}>No, cancel</Button>
+                <Button variant={'light'} onClick={props.onHide}>No, cancel</Button>
                 <Button variant={'danger'} onClick={handleDelete}>Yes. delete</Button>
             </Modal.Footer>
         </Modal>

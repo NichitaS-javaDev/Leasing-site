@@ -8,6 +8,17 @@ const BASE_URL = 'http://localhost:3005';
 // };
 
 // <----- CARS ----->
+export const getCarById = async (id) => {
+    try {
+        return await axios.get(`${BASE_URL}/secure/cars/${id}`,
+            {withCredentials: true}
+        );
+    } catch (error) {
+        console.error(`Error fetching car with id=${id}:`, error);
+        throw error;
+    }
+};
+
 export const getAllCars = async () => {
     try {
         return await axios.get(`${BASE_URL}/cars`);

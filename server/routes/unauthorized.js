@@ -4,12 +4,12 @@ const Car = require("../model/Car");
 const Apartment = require("../model/Apartment");
 const FarmEquipment = require("../model/FarmEquipment");
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.render('index');
 });
 
 // <----- CARS ----->
-router.get('/cars', async function(req, res, next) {
+router.get('/cars', async function(req, res) {
     try {
         const cars = await Car.find().sort({'price':1});
         res.json(cars);
@@ -20,7 +20,7 @@ router.get('/cars', async function(req, res, next) {
 
 
 // <----- APARTMENTS ----->
-router.get('/apartments', async function(req, res, next) {
+router.get('/apartments', async function(req, res) {
     try {
         const apartments = await Apartment.find().sort({'price':1});
         res.json(apartments);
@@ -31,7 +31,7 @@ router.get('/apartments', async function(req, res, next) {
 
 
 // <----- FARM EQUIPMENT ----->
-router.get('/farmEquipment', async function(req, res, next) {
+router.get('/farmEquipment', async function(req, res) {
     try {
         const farmEquipment = await FarmEquipment.find().sort({'price':1});
         res.json(farmEquipment);
