@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {createApartment, createFarmEquipment} from "../api/api";
+import {createFarmEquipment} from "../api/api";
 
 export default function CreateFarmEquipmentAModal(props) {
     useEffect(() => {
@@ -52,7 +52,6 @@ export default function CreateFarmEquipmentAModal(props) {
         } catch (error) {
         }
         props.onHide();
-        window.location.reload();
     };
 
     return (

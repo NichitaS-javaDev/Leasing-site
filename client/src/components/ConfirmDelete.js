@@ -23,7 +23,6 @@ export default function ConfirmDelete(props) {
                 default:
             }
             window.location.reload()
-
         } catch (error) {
             // TODO: Handle error
         }

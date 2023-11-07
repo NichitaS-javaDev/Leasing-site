@@ -3,11 +3,11 @@ import {useEffect} from "react";
 import {getCarById, updateCar} from "../api/api";
 import {useCarDetails} from "../hooks/useCarDetails";
 
-export default function UpdateCarAModal(props){
+export default function UpdateCarAModal(props) {
     const {carDetails, setCarDetails, handleInputChange, handleImageChange} = useCarDetails();
-    
+
     useEffect(() => {
-        const fetchCars = async () => {
+        const fetchCar = async () => {
             try {
                 const response = await getCarById(props.id);
                 setCarDetails(response.data);
@@ -16,8 +16,8 @@ export default function UpdateCarAModal(props){
             }
         }
 
-        fetchCars()
-    },[props.id, setCarDetails])
+        fetchCar()
+    }, [props.id, setCarDetails])
 
     const handleUpdate = async () => {
         try {
@@ -29,7 +29,8 @@ export default function UpdateCarAModal(props){
     }
 
     return (
-        <Modal show={props.show} onHide={props.onHide} size='lg' aria-labelledby="contained-modal-title-center" centered>
+        <Modal show={props.show} onHide={props.onHide} size='lg' aria-labelledby="contained-modal-title-center"
+               centered>
             <Form onSubmit={handleUpdate}>
                 <Modal.Body>
                     <Form.Group controlId="model">

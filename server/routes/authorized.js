@@ -86,19 +86,32 @@ router.post('/apartments', async function (req, res) {
     try {
         const {apartmentDetails} = req.body;
 
-        const newApartment = await Apartment.create({
-            _id: uuid.v4(),
-            city: apartmentDetails.city,
-            sector: apartmentDetails.sector,
-            surface: apartmentDetails.surface,
-            rooms: apartmentDetails.rooms,
-            condition: apartmentDetails.condition,
-            description: apartmentDetails.description,
-            price: apartmentDetails.price,
-            img: apartmentDetails.img
-        });
+        const newApartment = await Apartment.create({...apartmentDetails, _id: uuid.v4()})
 
         res.json(newApartment);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.put('/apartments/:id', async function (req, res) {
+    const {id} = req.params;
+    try {
+        const apartment = await Apartment.findOne({'_id': id});
+
+        if (!apartment) {
+            return res.status(404).json({message: 'Apartment not found'});
+        }
+
+        for (const key in req.body) {
+            if (req.body.hasOwnProperty(key)) {
+                apartment[key] = req.body[key]
+            }
+        }
+
+        await Apartment.updateOne({'_id': id}, apartment)
+            .then(result => res.json(result))
+            .catch(error => res.status(500).json({message: error.message}))
     } catch (error) {
         res.status(500).json({message: error.message});
     }

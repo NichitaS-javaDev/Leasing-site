@@ -1,44 +1,43 @@
+import {useApartmentDetails} from "../hooks/useApartmentDetails";
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect} from "react";
-import {createApartment} from "../api/api";
-import {useApartmentDetails} from "../hooks/useApartmentDetails";
+import {getApartmentById, updateApartment} from "../api/api";
 
-export default function CreateApartmentAModal(props) {
+export default function UpdateApartmentAModal(props){
     const {apartmentDetails, setApartmentDetails, handleInputChange, handleImageChange} = useApartmentDetails();
-    
+
     useEffect(() => {
-        if (!props.show) {
-            setApartmentDetails({
-                city: '',
-                sector: '',
-                surface: '',
-                rooms: '',
-                condition: '',
-                description: '',
-                price: 0,
-                img: ''
-            });
+        const fetchApartment = async () => {
+            try {
+                const response = await getApartmentById(props.id);
+                setApartmentDetails(response.data);
+            } catch (error) {
+                // TODO: Handle error
+            }
         }
-    }, [props.show, setApartmentDetails]);
-    
-    const handleCreateApartment = async () => {
+
+        fetchApartment()
+    }, [props.id, setApartmentDetails])
+
+    const handleUpdate = async () => {
         try {
-            await createApartment({...apartmentDetails});
+            await updateApartment({...apartmentDetails})
         } catch (error) {
+
         }
         props.onHide();
-    };
+    }
 
     return (
-        <Modal {...props} size='lg' aria-labelledby="contained-modal-title-center" centered>
-            <Form onSubmit={handleCreateApartment}>
+        <Modal show={props.show} onHide={props.onHide} size='lg' aria-labelledby="contained-modal-title-center" centered>
+            <Form onSubmit={handleUpdate}>
                 <Modal.Body>
                     <Form.Group controlId="description">
                         <Form.Label className={'ms-1'}>Descriere</Form.Label>
                         <Form.Control
                             as={"textarea"}
                             rows={1}
-                            placeholder="Introduceti descrierea"
+                            placeholder={apartmentDetails.description}
                             name="description"
                             value={apartmentDetails.description}
                             onChange={handleInputChange}
@@ -49,7 +48,7 @@ export default function CreateApartmentAModal(props) {
                         <Form.Label className={'ms-1'}>Oras</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti orasul"
+                            placeholder={apartmentDetails.city}
                             name="city"
                             value={apartmentDetails.city}
                             onChange={handleInputChange}
@@ -60,7 +59,7 @@ export default function CreateApartmentAModal(props) {
                         <Form.Label className={'ms-1'}>Sector</Form.Label>
                         <Form.Control
                             type='text'
-                            placeholder="Introduceti sectorul"
+                            placeholder={apartmentDetails.sector}
                             name="sector"
                             value={apartmentDetails.sector}
                             onChange={handleInputChange}
@@ -71,7 +70,7 @@ export default function CreateApartmentAModal(props) {
                         <Form.Label className={'ms-1'}>Suprafata</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti suprafata apartamentului"
+                            placeholder={apartmentDetails.surface}
                             name="surface"
                             value={apartmentDetails.surface}
                             onChange={handleInputChange}
@@ -82,7 +81,7 @@ export default function CreateApartmentAModal(props) {
                         <Form.Label className={'ms-1'}>Camere</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti numarul de camere"
+                            placeholder={apartmentDetails.rooms}
                             name="rooms"
                             value={apartmentDetails.rooms}
                             onChange={handleInputChange}
@@ -93,7 +92,7 @@ export default function CreateApartmentAModal(props) {
                         <Form.Label className={'ms-1'}>Conditia</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Introduceti conditia apartamentului"
+                            placeholder={apartmentDetails.condition}
                             name="condition"
                             value={apartmentDetails.condition}
                             onChange={handleInputChange}
@@ -104,7 +103,7 @@ export default function CreateApartmentAModal(props) {
                         <Form.Label className={'ms-1'}>Pret</Form.Label>
                         <Form.Control
                             type="number"
-                            placeholder="Introduceti pretul"
+                            placeholder={apartmentDetails.price}
                             name="price"
                             value={apartmentDetails.price}
                             onChange={handleInputChange}
@@ -117,7 +116,6 @@ export default function CreateApartmentAModal(props) {
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            required
                         />
                     </Form.Group>
                 </Modal.Body>
@@ -126,7 +124,7 @@ export default function CreateApartmentAModal(props) {
                         Cancel
                     </Button>
                     <Button type={"submit"} variant="outline-success">
-                        Save item
+                        Update item
                     </Button>
                 </Modal.Footer>
             </Form>

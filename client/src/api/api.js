@@ -71,6 +71,17 @@ export const deleteCar = async (id) => {
 
 
 // <----- APARTMENTS ----->
+export const getApartmentById = async (id) => {
+    try {
+        return await axios.get(`${BASE_URL}/secure/apartments/${id}`,
+            {withCredentials: true}
+        );
+    } catch (error) {
+        console.error(`Error fetching apartment with id=${id}:`, error);
+        throw error;
+    }
+};
+
 export const getAllApartments = async () => {
     try {
         return await axios.get(`${BASE_URL}/apartments`);
@@ -83,7 +94,7 @@ export const getAllApartments = async () => {
 export const createApartment = async (apartmentDetails) => {
     try {
         return await axios.post(`${BASE_URL}/secure/apartments`, {
-                apartmentDetails
+                ...apartmentDetails
             },
             {
                 withCredentials: true
@@ -94,6 +105,20 @@ export const createApartment = async (apartmentDetails) => {
         throw error;
     }
 };
+
+export const updateApartment = async (apartmentDetails) => {
+    try {
+        return await axios.put(`${BASE_URL}/secure/apartments/${apartmentDetails['_id']}`,{
+                ...apartmentDetails
+            },
+            {
+                withCredentials:true
+            })
+    } catch (error){
+        console.error('Error updating apartment:', error);
+        throw error;
+    }
+}
 
 export const deleteApartment = async (id) => {
     try {

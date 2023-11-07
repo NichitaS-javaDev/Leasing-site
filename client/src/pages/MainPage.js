@@ -3,6 +3,7 @@ import {Image} from "react-bootstrap";
 import headImg from "../images/leasing-head-img.jpeg";
 import LeasingCalc from "../components/LeasingCalc";
 import Header from "../components/Header";
+import LeasingCalcAConfigModal from "../components/LeasingCalcAConfigModal";
 
 export default function MainPage() {
     return (
@@ -89,6 +90,7 @@ export default function MainPage() {
                     Află mai multe despre serviciile noastre de leasing și calculează oferta ta personalizată chiar
                     acum!<br/><br/>
                     <LeasingCalc/>
+                    <LeasingCalcAConfigModal/>
                     <br/>Nu ezita să ne contactezi pentru orice întrebări sau asistență. Suntem aici pentru tine!
                 </p>
             </div>
