@@ -170,6 +170,17 @@ export const deleteFarmEquipment = async (id) => {
 };
 
 
+// <----- RATES ----->
+export const getRates = async () => {
+    try {
+        return await axios.get(`${BASE_URL}/rates`);
+    } catch (error) {
+        console.error('Error fetching rates:', error);
+        throw error;
+    }
+};
+
+
 // <----- USER ----->
 export const login = async (username, password) => {
     try {

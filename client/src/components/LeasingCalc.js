@@ -1,4 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {getRates} from "../api/api";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
+import {Button} from "react-bootstrap";
+import LeasingCalcAConfigModal from "./LeasingCalcAConfigModal";
+import {useCurrentRole} from "../hooks/useCurrentRole";
 
 export default function LeasingCalc() {
     const [item, setItem] = useState('auto');
@@ -7,29 +13,55 @@ export default function LeasingCalc() {
     const [loanTerm, setLoanTerm] = useState(36);
     const [monthlyPayment, setMonthlyPayment] = useState(1350);
     const [insurance, setInsurance] = useState(405)
+    const [interestRate, setInterestRate] = useState({
+        carRate: 0,
+        apartmentRate: 0,
+        farmRate: 0
+    });
+    const isAdmin = useCurrentRole();
+    const [editModalShow, setEditModalShow] = useState(false);
+    const modalProps = {
+        show: editModalShow,
+        onHide: () => setEditModalShow(false)
+    }
 
     const handleItemChange = (e) => {
         setItem(e.target.value);
     }
 
+    const handleEditRates = () => setEditModalShow(true)
+
+    useEffect(() => {
+        const fetchRates = async () => {
+            const result = await getRates();
+            const transformedResult = result.data.reduce((acc, value) => {
+                acc[value._id] = value.rate;
+                return acc;
+            }, {});
+            setInterestRate(transformedResult);
+        }
+
+        fetchRates();
+    }, [])
+
     const calculateMonthlyPayment = () => {
-        let interestRate;
+        let rate;
         switch (item) {
             case 'auto':
-                interestRate = 12;
+                rate = interestRate.carRate;
                 break;
             case 'imobil':
-                interestRate = 13.5;
+                rate = interestRate.apartmentRate;
                 break;
             case 'tehnica_agricola':
-                interestRate = 14;
+                rate = interestRate.farmRate;
                 break;
             default:
-                interestRate = 12;
+                rate = interestRate.carRate;
         }
 
         const principal = carPrice - downPayment;
-        const monthlyInterestRate = (interestRate / 100) / 12;
+        const monthlyInterestRate = (rate / 100) / 12;
         const monthlyPayment = (principal * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanTerm));
         setMonthlyPayment(monthlyPayment.toFixed(2));
         setInsurance((carPrice * 0.034).toFixed(2));
@@ -89,6 +121,7 @@ export default function LeasingCalc() {
                             value={downPayment}
                             min={carPrice * 0.2}
                             max={carPrice}
+                            step={'100'}
                             onChange={(e) => {
                                 setDownPayment(Math.round(e.target.value))
                                 calculateMonthlyPayment()
@@ -152,6 +185,17 @@ export default function LeasingCalc() {
                 <p className={"month-pay-note"}>* Calculul realizat prin intermediul calculatorului online este unul
                     estimativ și nu reprezintă un angajament în vederea încheierii unei tranzacţii.</p>
             </div>
+            {
+                isAdmin &&
+                <div className={"position-absolute"} style={{top: "117.5em", left: "50em"}}>
+                    <Button variant={'light'} className={'admin_btn'} onClick={handleEditRates}>
+                        <FontAwesomeIcon icon={faPenToSquare}/>
+                    </Button>
+                </div>
+            }
+            {
+                isAdmin && <LeasingCalcAConfigModal {...modalProps}/>
+            }
         </div>
     );
 }

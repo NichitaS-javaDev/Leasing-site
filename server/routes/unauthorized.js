@@ -3,6 +3,7 @@ const router = express.Router();
 const Car = require("../model/Car");
 const Apartment = require("../model/Apartment");
 const FarmEquipment = require("../model/FarmEquipment");
+const LeasingRate = require("../model/LeasingRate");
 
 router.get('/', function(req, res) {
     res.render('index');
@@ -35,6 +36,17 @@ router.get('/farmEquipment', async function(req, res) {
     try {
         const farmEquipment = await FarmEquipment.find().sort({'price':1});
         res.json(farmEquipment);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+// <----- RATE ----->
+router.get('/rates', async function(req, res) {
+    try {
+        const rates = await LeasingRate.find();
+        res.json(rates);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
