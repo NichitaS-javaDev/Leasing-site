@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
-import {getAllFarmEquipment, getCurrentUserRole} from "../api/api";
+import {getAllFarmEquipment} from "../api/api";
 import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
+import {useCurrentRole} from "../hooks/useCurrentRole";
 
 export default function FarmEquipmentPage() {
     const [farmEquipments, setFarmEquipment] = useState([]);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const isAdmin = useCurrentRole();
 
     useEffect(() => {
         const fetchFarmEquipment = async () => {
@@ -20,17 +21,7 @@ export default function FarmEquipmentPage() {
             }
         };
 
-        const fetchCurrentUserRole = async () => {
-            try {
-                const response = await getCurrentUserRole();
-                setIsAdmin(response.data.role === 'admin');
-            } catch (error) {
-                // TODO: Handle error
-            }
-        };
-
         fetchFarmEquipment();
-        fetchCurrentUserRole();
     }, []);
 
     return (

@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
-import {getAllCars, getCurrentUserRole} from "../api/api";
+import {getAllCars} from "../api/api";
 import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
+import {useCurrentRole} from "../hooks/useCurrentRole";
 
 export default function CarsPage() {
     const [cars, setCars] = useState([]);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const isAdmin = useCurrentRole();
 
     useEffect(() => {
         const fetchCars = async () => {
@@ -20,17 +21,7 @@ export default function CarsPage() {
             }
         };
 
-        const fetchCurrentUserRole = async () => {
-            try {
-                const response = await getCurrentUserRole();
-                setIsAdmin(response.data.role === 'admin');
-            } catch (error) {
-                // TODO: Handle error
-            }
-        };
-
         fetchCars();
-        fetchCurrentUserRole()
     }, []);
 
     return (
