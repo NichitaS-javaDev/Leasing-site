@@ -2,8 +2,10 @@ import {Button, Modal} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {RoutesEnum} from "./RoutesEnum";
-import {deleteApartment, deleteCar, deleteFarmEquipment} from "../api/api";
 import {useLocation} from "react-router-dom";
+import {deleteCar} from "../api/cars";
+import {deleteApartment} from "../api/apartments";
+import {deleteFarmEquipment} from "../api/farmEquipment";
 
 export default function ConfirmDelete(props) {
     const location = useLocation();

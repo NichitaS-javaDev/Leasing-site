@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
-import {getAllFarmEquipment} from "../api/api";
 import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
+import {getAllFarmEquipment} from "../api/farmEquipment";
 
 export default function FarmEquipmentPage() {
     const [farmEquipments, setFarmEquipment] = useState([]);

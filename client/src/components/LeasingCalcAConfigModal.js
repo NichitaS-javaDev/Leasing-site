@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useState} from "react";
-import {updateRates} from "../api/api";
+import {updateRates} from "../api/rates";
 
 export default function LeasingCalcAConfigModal(props) {
     const [interestRates, setInterestRates] = useState({

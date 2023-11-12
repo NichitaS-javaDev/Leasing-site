@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
-import {getAllCars} from "../api/api";
 import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
+import {getAllCars} from "../api/cars";
 
 export default function CarsPage() {
     const [cars, setCars] = useState([]);

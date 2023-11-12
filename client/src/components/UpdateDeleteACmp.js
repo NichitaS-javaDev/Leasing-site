@@ -5,9 +5,11 @@ import {faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
 import ConfirmDelete from "./ConfirmDelete";
 import UpdateCarAModal from "./UpdateCarAModal";
 import {RoutesEnum} from "./RoutesEnum";
-import {deleteApartment, deleteCar, deleteFarmEquipment} from "../api/api";
 import {useLocation} from "react-router-dom";
 import UpdateApartmentAModal from "./UpdateApartmentAModal";
+import {deleteCar} from "../api/cars";
+import {deleteApartment} from "../api/apartments";
+import {deleteFarmEquipment} from "../api/farmEquipment";
 
 export default function UpdateDeleteACmp({id}) {
     const location = useLocation();

@@ -4,8 +4,8 @@ import logo from "../images/logo.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faRightToBracket, faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {useLocation, useNavigate} from "react-router-dom";
-import {getIsAuthorized, signOut} from "../api/api";
 import {RoutesEnum} from "./RoutesEnum";
+import {getIsAuthorized, signOut} from "../api/user";
 
 export default function Header() {
     const location = useLocation();

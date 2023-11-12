@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getCurrentUserRole} from "../api/api";
+import {getCurrentUserRole} from "../api/user";
 
 export function useCurrentRole() {
     const [isAdmin, setIsAdmin] = useState(false);

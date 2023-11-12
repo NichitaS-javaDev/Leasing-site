@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import loginImg from "../images/login-img.webp"
 import {Image} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
-import {login} from "../api/api";
+import {login} from "../api/user";
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');

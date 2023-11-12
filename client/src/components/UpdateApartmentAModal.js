@@ -1,7 +1,7 @@
 import {useApartmentDetails} from "../hooks/useApartmentDetails";
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect} from "react";
-import {getApartmentById, updateApartment} from "../api/api";
+import {getApartmentById, updateApartment} from "../api/apartments";
 
 export default function UpdateApartmentAModal(props){
     const {apartmentDetails, setApartmentDetails, handleInputChange, handleImageChange} = useApartmentDetails();
