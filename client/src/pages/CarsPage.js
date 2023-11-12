@@ -9,7 +9,7 @@ import {useCurrentRole} from "../hooks/useCurrentRole";
 
 export default function CarsPage() {
     const [cars, setCars] = useState([]);
-    const isAdmin = useCurrentRole();
+    const {isAdmin} = useCurrentRole();
 
     useEffect(() => {
         const fetchCars = async () => {

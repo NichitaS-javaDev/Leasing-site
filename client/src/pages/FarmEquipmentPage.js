@@ -9,7 +9,7 @@ import {useCurrentRole} from "../hooks/useCurrentRole";
 
 export default function FarmEquipmentPage() {
     const [farmEquipments, setFarmEquipment] = useState([]);
-    const isAdmin = useCurrentRole();
+    const {isAdmin} = useCurrentRole();
 
     useEffect(() => {
         const fetchFarmEquipment = async () => {

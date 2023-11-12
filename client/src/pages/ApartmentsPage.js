@@ -9,7 +9,7 @@ import {useCurrentRole} from "../hooks/useCurrentRole";
 
 export default function ApartmentsPage() {
     const [apartments, setApartments] = useState([]);
-    const isAdmin = useCurrentRole();
+    const {isAdmin} = useCurrentRole();
 
     useEffect(() => {
         const fetchApartments = async () => {

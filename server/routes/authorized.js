@@ -4,6 +4,7 @@ const Car = require("../model/Car");
 const uuid = require('uuid');
 const Apartment = require("../model/Apartment");
 const FarmEquipment = require("../model/FarmEquipment");
+const LeasingRate = require("../model/LeasingRate");
 
 router.use('/', function (req, res, next) {
     if (req.session.user) {
@@ -166,6 +167,20 @@ router.delete('/farmEquipment/:id', async function (req, res) {
     try {
         const farmEquipment = await FarmEquipment.deleteOne({'_id': id})
         res.json(farmEquipment);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
+
+// <----- RATE ----->
+router.put('/rates', async function (req, res) {
+    const newRates = req.body.data
+    try {
+        for (const newRate of newRates) {
+            await LeasingRate.updateOne({ _id: newRate.id }, { $set: { rate: newRate.rate } })
+        }
+        res.json(newRates)
     } catch (error) {
         res.status(500).json({message: error.message});
     }

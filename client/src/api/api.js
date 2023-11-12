@@ -180,6 +180,21 @@ export const getRates = async () => {
     }
 };
 
+export const updateRates = async (newRates) => {
+    try {
+        console.log(newRates)
+        return await axios.put(`${BASE_URL}/secure/rates`,{
+                data: newRates
+            },
+            {
+                withCredentials:true
+            })
+    } catch (error){
+        console.error('Error updating leasing rates:', error);
+        throw error;
+    }
+}
+
 
 // <----- USER ----->
 export const login = async (username, password) => {

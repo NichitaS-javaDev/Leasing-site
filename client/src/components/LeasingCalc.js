@@ -13,16 +13,17 @@ export default function LeasingCalc() {
     const [loanTerm, setLoanTerm] = useState(36);
     const [monthlyPayment, setMonthlyPayment] = useState(1350);
     const [insurance, setInsurance] = useState(405)
-    const [interestRate, setInterestRate] = useState({
+    const [interestRates, setInterestRates] = useState({
         carRate: 0,
         apartmentRate: 0,
         farmRate: 0
     });
-    const isAdmin = useCurrentRole();
+    const {isAdmin} = useCurrentRole();
     const [editModalShow, setEditModalShow] = useState(false);
     const modalProps = {
         show: editModalShow,
-        onHide: () => setEditModalShow(false)
+        onHide: () => setEditModalShow(false),
+        rates: interestRates
     }
 
     const handleItemChange = (e) => {
@@ -38,7 +39,7 @@ export default function LeasingCalc() {
                 acc[value._id] = value.rate;
                 return acc;
             }, {});
-            setInterestRate(transformedResult);
+            setInterestRates(transformedResult);
         }
 
         fetchRates();
@@ -48,16 +49,16 @@ export default function LeasingCalc() {
         let rate;
         switch (item) {
             case 'auto':
-                rate = interestRate.carRate;
+                rate = interestRates.carRate;
                 break;
             case 'imobil':
-                rate = interestRate.apartmentRate;
+                rate = interestRates.apartmentRate;
                 break;
             case 'tehnica_agricola':
-                rate = interestRate.farmRate;
+                rate = interestRates.farmRate;
                 break;
             default:
-                rate = interestRate.carRate;
+                rate = interestRates.carRate;
         }
 
         const principal = carPrice - downPayment;
@@ -187,14 +188,14 @@ export default function LeasingCalc() {
             </div>
             {
                 isAdmin &&
-                <div className={"position-absolute"} style={{top: "117.5em", left: "50em"}}>
-                    <Button variant={'light'} className={'admin_btn'} onClick={handleEditRates}>
-                        <FontAwesomeIcon icon={faPenToSquare}/>
-                    </Button>
-                </div>
-            }
-            {
-                isAdmin && <LeasingCalcAConfigModal {...modalProps}/>
+                <>
+                    <div className={"position-absolute"} style={{top: "117.5em", left: "50em"}}>
+                        <Button variant={'light'} className={'admin_btn'} onClick={handleEditRates}>
+                            <FontAwesomeIcon icon={faPenToSquare}/>
+                        </Button>
+                    </div>
+                    <LeasingCalcAConfigModal {...modalProps}/>
+                </>
             }
         </div>
     );
