@@ -3,5 +3,6 @@ export const RoutesEnum = {
     login: '/login',
     cars: '/cars',
     apartments: '/apartments',
-    farmEquipment: '/farmEquipment'
+    farmEquipment: '/farmEquipment',
+    clientDashboard: '/clientDashboard'
 }

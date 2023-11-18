@@ -8,7 +8,7 @@
 
 .login_btn,
 .card-btn,
-.admin_btn{
+.admin_btn {
     background: transparent;
     border: none;
     color: #212529;
@@ -34,11 +34,11 @@
     font-weight: bold;
 }
 
-.count-number{
+.count-number {
     font-size: 45px;
 }
 
-.count-text{
+.count-text {
     font-size: 18px;
 }
 
@@ -175,11 +175,11 @@ footer {
 .vehicle-card,
 .apartment-card,
 .farmEquipment-card,
-.add-card{
+.add-card {
     margin: 1% 2% 2%;
 }
 
-.add-card{
+.add-card {
     align-content: center;
     cursor: pointer;
 }
@@ -187,7 +187,7 @@ footer {
 .vehicle-card-link,
 .apartment-card-link,
 .farmEquipment-card-link,
-.add-card{
+.add-card {
     display: inline-block;
     width: 18.6rem;
     color: #212529;
@@ -196,14 +196,14 @@ footer {
 
 .vehicles-box,
 .apartments-box,
-.farmEquipments-box{
+.farmEquipments-box {
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
     margin-left: 2.8%;
 }
 
-.card-text-tl{
+.card-text-tl {
     font-weight: bold;
 }
 
@@ -225,10 +225,66 @@ footer {
     }
 }
 
-.sign-in-with-icon{
+.sign-in-with-icon {
     width: 1%;
 }
 
-input[type="file"]::file-selector-button{
+input[type="file"]::file-selector-button {
     background-color: #e8e8e8;
+}
+
+.client-btn {
+    font-size: 1.25em;
+    color: #212529;
+}
+
+.client-data-box {
+    width: 85%;
+    padding: 2% 2% 1%;
+    border-radius: 10px;
+    border: solid #e2e6e9 3px;
+}
+
+.client-data-form-group {
+    margin-top: 1.5%;
+    margin-left: 5%;
+}
+
+.client-data-form-group-l1{
+    margin-left: 2%;
+}
+
+.client-data-form-group-f{
+    margin-top: 1.5%;
+    margin-left: 2%;
+}
+
+.client-data-contact-control,
+.client-data-name-control,
+.client-data-pers-info-control,
+.client-data-id-control,
+.client-data-emp-control,
+.client-pass-pic {
+    border-radius: 15px;
+    border-width: 2px;
+}
+
+.client-data-name-control {
+    width: 75vh;
+}
+
+.client-data-contact-control {
+    width: 50vh;
+}
+
+.client-data-pers-info-control {
+    width: 35vh;
+}
+
+.client-data-id-control {
+    width: 40vh;
+}
+
+.client-data-emp-control {
+    width: 50vh;
 }

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Image, Nav} from "react-bootstrap";
+import {Button, Image} from "react-bootstrap";
 import logo from "../images/logo.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faRightToBracket, faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
+import {faRightFromBracket, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {useLocation, useNavigate} from "react-router-dom";
 import {RoutesEnum} from "./RoutesEnum";
 import {getIsAuthorized, signOut} from "../api/user";
+import NavigationBar from "./NavigationBar";
 
 export default function Header() {
     const location = useLocation();
@@ -41,22 +42,7 @@ export default function Header() {
 
     return (
         <React.Fragment>
-            <div>
-                <Nav fill variant="tabs" defaultActiveKey={activeKey} className="custom-nav">
-                    <Nav.Item>
-                        <Nav.Link href={`${RoutesEnum.index}`}>Despre Leasing</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href={`${RoutesEnum.cars}`}>Autoturisme</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href={`${RoutesEnum.apartments}`}>Imobil</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href={`${RoutesEnum.farmEquipment}`}>Tehnică Agricolă</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-            </div>
+            <NavigationBar/>
             {activeKey === '/' ? <div></div> : <div className={'mt-2'}></div>}
             <div className={'headerImg d-flex align-items-center justify-content-between'}>
                 <Image id={'logo_img'} height={'90vh'} width={'300vh'} src={logo}></Image>

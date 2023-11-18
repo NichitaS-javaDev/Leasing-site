@@ -7,9 +7,6 @@ import UpdateCarAModal from "./UpdateCarAModal";
 import {RoutesEnum} from "./RoutesEnum";
 import {useLocation} from "react-router-dom";
 import UpdateApartmentAModal from "./UpdateApartmentAModal";
-import {deleteCar} from "../api/cars";
-import {deleteApartment} from "../api/apartments";
-import {deleteFarmEquipment} from "../api/farmEquipment";
 
 export default function UpdateDeleteACmp({id}) {
     const location = useLocation();
@@ -35,8 +32,6 @@ export default function UpdateDeleteACmp({id}) {
                     return <UpdateCarAModal {...props}/>
                 case RoutesEnum.apartments:
                     return <UpdateApartmentAModal {...props}/>
-                // case RoutesEnum.farmEquipment:
-                //     break;
                 default:
             }
         } catch (error) {
