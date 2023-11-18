@@ -9,9 +9,8 @@ const unauthorizedRouter = require('./routes/unauthorized')
 const authorizedRouter = require('./routes/authorized')
 const User = require("./model/User");
 
+require('dotenv').config();
 require('./config/db');
-
-const secret = "3f1a8e678a4b6a4dc925c18c9a4c2b4a"
 
 const app = express();
 
@@ -20,15 +19,15 @@ app.use(express.json({limit: '1mb'}));
 app.use(express.urlencoded({ limit: '1mb', extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_HOST,
     credentials: true,
 }))
 app.use(session({
-    secret: secret,
+    secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: false
 }));
-app.use(cookieParser(secret));
+app.use(cookieParser(process.env.SESSION_SECRET_KEY));
 app.use(helmet())
 
 app.use('/', unauthorizedRouter);
