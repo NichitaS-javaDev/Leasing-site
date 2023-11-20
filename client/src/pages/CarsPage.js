@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
-import {getAllCars} from "../api/cars";
+import {getAllCars} from "../api/car";
 import GenerateContractCliCmp from "../components/GenerateContractCliCmp";
 
 export default function CarsPage() {
@@ -46,14 +46,11 @@ export default function CarsPage() {
                                     <div><span
                                         className={"card-text-tl"}>Pret: {car.price.toLocaleString('en-US')} EUR</span>
                                     </div>
-                                    {/*{*/}
-                                    {/*    isAdmin ? <div>Admin</div> : <div>Not Admin</div>*/}
-                                    {/*}*/}
                                 </Card.Text>
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={car._id}/>}
-                        {isClient && <GenerateContractCliCmp/>}
+                        {isClient && <GenerateContractCliCmp {...car}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

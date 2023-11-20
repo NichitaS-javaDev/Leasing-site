@@ -1,3 +1,4 @@
+const axios = require('axios')
 const express = require("express");
 const router = express.Router();
 const Car = require("../model/Car");
@@ -198,4 +199,99 @@ router.get('/clients/:username', async function (req, res) {
         res.status(500).json({message: error.message});
     }
 })
+
+// <----- CONTRACT ----->
+router.post('/contract/generate', async (req, res) => {
+    const BOLD_SIGN_URL = process.env.BOLDSIGN_BASE_URL
+    const sendUrl = `${BOLD_SIGN_URL}/template/send`;
+    const embedSignUrl = `${BOLD_SIGN_URL}/document/getEmbeddedSignLink`;
+    const headers = {
+        'X-API-KEY': process.env.BOLDSIGN_API_KEY,
+        'Content-Type': 'application/json',
+    };
+
+    const car = req.body;
+
+    const data = {
+        roles: [
+            {
+                roleIndex: 1,
+                signerName: car.clientName,
+                signerEmail: 'nsaharov33@gmail.com',
+                existingFormFields: [
+                    {
+                        id: 'name',
+                        value: car.clientName,
+                    },
+                    {
+                        id: 'model',
+                        value: car.model,
+                    },
+                    {
+                        id: 'config',
+                        value: car.description,
+                    },
+                    {
+                        id: 'vin',
+                        value: uuid.v4(),
+                    },
+                    {
+                        id: 'price',
+                        value: car.price,
+                    },
+                    {
+                        id: 'totalPrice',
+                        value: car.price,
+                    },
+                    {
+                        id: 'retailPrice',
+                        value: car.price,
+                    },
+                    {
+                        id: 'agreedPrice',
+                        value: car.price,
+                    },
+                    {
+                        id: 'amortizedAmount',
+                        value: car.price,
+                    },
+                    {
+                        id: 'months',
+                        value: 60,
+                    },
+                    {
+                        id: 'lessee',
+                        value: car.clientName,
+                    }
+                ],
+            },
+            {
+                roleIndex: 2,
+                signerName: 'name',
+                signerEmail: 'nichita.saharov@isa.utm.md',
+            },
+        ],
+        disableEmails: true,
+    };
+
+    try {
+        const response = await axios.post(sendUrl, data, {
+            headers: headers,
+            params: {templateId: process.env.BOLDSIGN_CAR_TEMPLATE_ID},
+        });
+        const docId = response.data.documentId;
+
+        const redirectUrl = (process.env.CLIENT_HOST).toString().concat('/clientDashboard')
+        const result = await axios.get(embedSignUrl, {
+            headers: headers,
+            params: {documentId: docId, signerEmail: 'nsaharov33@gmail.com', redirectUrl: redirectUrl},
+        });
+        const signUrl = result.data.signLink;
+
+        res.json(signUrl)
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
 module.exports = router

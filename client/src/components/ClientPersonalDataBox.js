@@ -2,41 +2,13 @@ import {Button, Form} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleCheck} from "@fortawesome/free-regular-svg-icons";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
-import {useEffect, useState} from "react";
-import {getClientByUsername} from "../api/clients";
+import {useState} from "react";
+import {useCurrentClient} from "../hooks/useCurrentClient";
 
 export default function ClientPersonalDataBox() {
     const [isDisabled, setIsDisabled] = useState(true);
     const handleEditClick = () => setIsDisabled(!isDisabled);
-    const [clientDetails, setClientDetails] = useState({
-        _id: '',
-        name: '',
-        surname: '',
-        tel: '',
-        email: '',
-        birthday: '',
-        nationality: '',
-        gender: '',
-        employer: '',
-        function: '',
-        avgSalary: 0,
-        passport: '',
-        profileStatus: '',
-        username: ''
-    });
-
-    useEffect(() => {
-        const fetchClientData = async () => {
-            try {
-                const response = await getClientByUsername('client');
-                setClientDetails(response.data)
-            } catch (error) {
-
-            }
-        }
-
-        fetchClientData();
-    })
+    const {clientDetails, setClientDetails} = useCurrentClient();
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
