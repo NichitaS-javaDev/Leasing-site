@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const Apartment = require("../model/Apartment");
 const FarmEquipment = require("../model/FarmEquipment");
 const LeasingRate = require("../model/LeasingRate");
+const Client = require("../model/Client")
 
 router.use('/', function (req, res, next) {
     if (req.session.user) {
@@ -178,7 +179,7 @@ router.put('/rates', async function (req, res) {
     const newRates = req.body.data
     try {
         for (const newRate of newRates) {
-            await LeasingRate.updateOne({ _id: newRate.id }, { $set: { rate: newRate.rate } })
+            await LeasingRate.updateOne({_id: newRate.id}, {$set: {rate: newRate.rate}})
         }
         res.json(newRates)
     } catch (error) {
@@ -186,4 +187,15 @@ router.put('/rates', async function (req, res) {
     }
 })
 
+
+// <----- CLIENT ----->
+router.get('/clients/:username', async function (req, res) {
+    const {username} = req.params;
+    try {
+        const client = await Client.findOne({'username': username})
+        res.json(client)
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
 module.exports = router
