@@ -6,10 +6,11 @@ import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllFarmEquipment} from "../api/farmEquipment";
+import GenerateContractCliCmp from "../components/GenerateContractCliCmp";
 
 export default function FarmEquipmentPage() {
     const [farmEquipments, setFarmEquipment] = useState([]);
-    const {isAdmin} = useCurrentRole();
+    const {isAdmin, isClient} = useCurrentRole();
 
     useEffect(() => {
         const fetchFarmEquipment = async () => {
@@ -53,6 +54,7 @@ export default function FarmEquipmentPage() {
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={farmEquipment._id}/>}
+                        {isClient && <GenerateContractCliCmp/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

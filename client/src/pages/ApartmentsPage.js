@@ -6,10 +6,11 @@ import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllApartments} from "../api/apartments";
+import GenerateContractCliCmp from "../components/GenerateContractCliCmp";
 
 export default function ApartmentsPage() {
     const [apartments, setApartments] = useState([]);
-    const {isAdmin} = useCurrentRole();
+    const {isAdmin, isClient} = useCurrentRole();
 
     useEffect(() => {
         const fetchApartments = async () => {
@@ -51,6 +52,7 @@ export default function ApartmentsPage() {
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={apartment._id}/>}
+                        {isClient && <GenerateContractCliCmp/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

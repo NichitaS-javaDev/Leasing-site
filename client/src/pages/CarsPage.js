@@ -6,10 +6,11 @@ import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllCars} from "../api/cars";
+import GenerateContractCliCmp from "../components/GenerateContractCliCmp";
 
 export default function CarsPage() {
     const [cars, setCars] = useState([]);
-    const {isAdmin} = useCurrentRole();
+    const {isAdmin, isClient} = useCurrentRole();
 
     useEffect(() => {
         const fetchCars = async () => {
@@ -52,6 +53,7 @@ export default function CarsPage() {
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={car._id}/>}
+                        {isClient && <GenerateContractCliCmp/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}
