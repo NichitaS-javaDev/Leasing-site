@@ -3,8 +3,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {RoutesEnum} from "./RoutesEnum";
 import {useLocation} from "react-router-dom";
-import {deleteCar} from "../api/cars";
-import {deleteApartment} from "../api/apartments";
+import {deleteCar} from "../api/car";
+import {deleteApartment} from "../api/apartment";
 import {deleteFarmEquipment} from "../api/farmEquipment";
 
 export default function ConfirmDelete(props) {

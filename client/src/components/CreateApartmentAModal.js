@@ -1,7 +1,7 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect} from "react";
 import {useApartmentDetails} from "../hooks/useApartmentDetails";
-import {createApartment} from "../api/apartments";
+import {createApartment} from "../api/apartment";
 
 export default function CreateApartmentAModal(props) {
     const {apartmentDetails, setApartmentDetails, handleInputChange, handleImageChange} = useApartmentDetails();

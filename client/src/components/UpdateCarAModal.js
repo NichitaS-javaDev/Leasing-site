@@ -1,7 +1,7 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect} from "react";
 import {useCarDetails} from "../hooks/useCarDetails";
-import {getCarById, updateCar} from "../api/cars";
+import {getCarById, updateCar} from "../api/car";
 
 export default function UpdateCarAModal(props) {
     const {carDetails, setCarDetails, handleInputChange, handleImageChange} = useCarDetails();

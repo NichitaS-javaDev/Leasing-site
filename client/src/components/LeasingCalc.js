@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getRates} from "../api/rates";
+import {getRates} from "../api/rate";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "react-bootstrap";

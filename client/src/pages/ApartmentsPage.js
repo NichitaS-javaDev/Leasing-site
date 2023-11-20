@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
 import CreateACard from "../components/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
-import {getAllApartments} from "../api/apartments";
+import {getAllApartments} from "../api/apartment";
 import GenerateContractCliCmp from "../components/GenerateContractCliCmp";
 
 export default function ApartmentsPage() {
