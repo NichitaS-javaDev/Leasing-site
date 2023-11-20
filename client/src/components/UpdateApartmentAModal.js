@@ -32,7 +32,7 @@ export default function UpdateApartmentAModal(props){
         <Modal show={props.show} onHide={props.onHide} size='lg' aria-labelledby="contained-modal-title-center" centered>
             <Form onSubmit={handleUpdate}>
                 <Modal.Body>
-                    <Form.Group controlId="description">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Descriere</Form.Label>
                         <Form.Control
                             as={"textarea"}

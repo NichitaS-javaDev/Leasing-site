@@ -33,7 +33,7 @@ export default function CreateApartmentAModal(props) {
         <Modal {...props} size='lg' aria-labelledby="contained-modal-title-center" centered>
             <Form onSubmit={handleCreateApartment}>
                 <Modal.Body>
-                    <Form.Group controlId="description">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Descriere</Form.Label>
                         <Form.Control
                             as={"textarea"}
@@ -45,7 +45,7 @@ export default function CreateApartmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="city">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Oras</Form.Label>
                         <Form.Control
                             type="text"
@@ -56,7 +56,7 @@ export default function CreateApartmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="sector">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Sector</Form.Label>
                         <Form.Control
                             type='text'
@@ -67,7 +67,7 @@ export default function CreateApartmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="surface">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Suprafata</Form.Label>
                         <Form.Control
                             type="text"
@@ -78,7 +78,7 @@ export default function CreateApartmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="rooms">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Camere</Form.Label>
                         <Form.Control
                             type="text"
@@ -89,7 +89,7 @@ export default function CreateApartmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="condition">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Conditia</Form.Label>
                         <Form.Control
                             type="text"
@@ -100,7 +100,7 @@ export default function CreateApartmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="price">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Pret</Form.Label>
                         <Form.Control
                             type="number"
@@ -111,7 +111,7 @@ export default function CreateApartmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="img">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Image</Form.Label>
                         <Form.Control
                             type="file"

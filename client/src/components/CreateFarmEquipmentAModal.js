@@ -58,7 +58,7 @@ export default function CreateFarmEquipmentAModal(props) {
         <Modal {...props} size='lg' aria-labelledby="contained-modal-title-center" centered>
             <Form onSubmit={handleCreateApartment}>
                 <Modal.Body>
-                    <Form.Group controlId="model">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Model</Form.Label>
                         <Form.Control
                             type={'text'}
@@ -69,7 +69,7 @@ export default function CreateFarmEquipmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="engine">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Motor</Form.Label>
                         <Form.Control
                             type="text"
@@ -80,7 +80,7 @@ export default function CreateFarmEquipmentAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="power">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Putere</Form.Label>
                         <Form.Control
                             type='text'
@@ -90,7 +90,7 @@ export default function CreateFarmEquipmentAModal(props) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="fuelTank">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Rezervor</Form.Label>
                         <Form.Control
                             type="text"
@@ -100,7 +100,7 @@ export default function CreateFarmEquipmentAModal(props) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="weight">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Masa proprie</Form.Label>
                         <Form.Control
                             type="text"
@@ -110,7 +110,7 @@ export default function CreateFarmEquipmentAModal(props) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="payloadCapacity">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Capacitatea de incarcare</Form.Label>
                         <Form.Control
                             type="text"
@@ -120,7 +120,7 @@ export default function CreateFarmEquipmentAModal(props) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="price">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Pret</Form.Label>
                         <Form.Control
                             type="number"
@@ -130,7 +130,7 @@ export default function CreateFarmEquipmentAModal(props) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="img">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Image</Form.Label>
                         <Form.Control
                             type="file"

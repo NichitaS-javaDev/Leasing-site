@@ -33,7 +33,7 @@ export default function UpdateCarAModal(props) {
                centered>
             <Form onSubmit={handleUpdate}>
                 <Modal.Body>
-                    <Form.Group controlId="model">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Model</Form.Label>
                         <Form.Control
                             type="text"
@@ -44,7 +44,7 @@ export default function UpdateCarAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="description">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Description</Form.Label>
                         <Form.Control
                             as="textarea"
@@ -56,7 +56,7 @@ export default function UpdateCarAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="transmission">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Transmission</Form.Label>
                         <Form.Control
                             type="text"
@@ -67,7 +67,7 @@ export default function UpdateCarAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="fuel">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Fuel</Form.Label>
                         <Form.Control
                             type="text"
@@ -78,7 +78,7 @@ export default function UpdateCarAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="price">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Price</Form.Label>
                         <Form.Control
                             type="number"
@@ -89,7 +89,7 @@ export default function UpdateCarAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="year">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Year</Form.Label>
                         <Form.Control
                             type="number"
@@ -100,7 +100,7 @@ export default function UpdateCarAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="color">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Color</Form.Label>
                         <Form.Control
                             type="text"
@@ -111,7 +111,7 @@ export default function UpdateCarAModal(props) {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="img">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Image</Form.Label>
                         <Form.Control
                             type="file"
