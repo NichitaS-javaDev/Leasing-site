@@ -53,9 +53,6 @@ export default function CarsPage() {
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={car._id}/>}
                         {isClient && <GenerateContractCliCmp car={car} clientDetails={clientDetails}/>}
-                        {/*{isClient && <ConfirmContractGenerationModal car={car} clientDetails={clientDetails}*/}
-                        {/*                                             show={showConfirmModal}*/}
-                        {/*                                             onHide={handleConfirmModalClose}/>}*/}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}
