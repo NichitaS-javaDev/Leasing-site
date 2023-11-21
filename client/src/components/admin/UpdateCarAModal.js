@@ -1,44 +1,43 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect} from "react";
-import {useCarDetails} from "../hooks/useCarDetails";
-import {createCar} from "../api/car";
+import {useCarDetails} from "../../hooks/useCarDetails";
+import {getCarById, updateCar} from "../../api/car";
 
-export default function CreateCarAModal(props) {
+export default function UpdateCarAModal(props) {
     const {carDetails, setCarDetails, handleInputChange, handleImageChange} = useCarDetails();
 
     useEffect(() => {
-        if (!props.show) {
-            setCarDetails({
-                model: '',
-                description: '',
-                transmission: '',
-                fuel: '',
-                price: 0,
-                year: 0,
-                color: '',
-                img: ''
-            });
+        const fetchCar = async () => {
+            try {
+                const response = await getCarById(props.id);
+                setCarDetails(response.data);
+            } catch (error) {
+                // TODO: Handle error
+            }
         }
-    }, [props.show, setCarDetails]);
-    
-    const handleCreateCar = async () => {
+
+        fetchCar()
+    }, [props.id, setCarDetails])
+
+    const handleUpdate = async () => {
         try {
-            await createCar({...carDetails});
+            await updateCar({...carDetails})
         } catch (error) {
 
         }
         props.onHide();
-    };
+    }
 
     return (
-        <Modal {...props} size='lg' aria-labelledby="contained-modal-title-center" centered>
-            <Form onSubmit={handleCreateCar}>
+        <Modal show={props.show} onHide={props.onHide} size='lg' aria-labelledby="contained-modal-title-center"
+               centered>
+            <Form onSubmit={handleUpdate}>
                 <Modal.Body>
                     <Form.Group>
                         <Form.Label className={'ms-1'}>Model</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Enter car model"
+                            placeholder={carDetails.model}
                             name="model"
                             value={carDetails.model}
                             onChange={handleInputChange}
@@ -50,7 +49,7 @@ export default function CreateCarAModal(props) {
                         <Form.Control
                             as="textarea"
                             rows={1}
-                            placeholder="Enter car description"
+                            placeholder={carDetails.description}
                             name="description"
                             value={carDetails.description}
                             onChange={handleInputChange}
@@ -61,7 +60,7 @@ export default function CreateCarAModal(props) {
                         <Form.Label className={'ms-1'}>Transmission</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Enter transmission type"
+                            placeholder={carDetails.transmission}
                             name="transmission"
                             value={carDetails.transmission}
                             onChange={handleInputChange}
@@ -72,18 +71,18 @@ export default function CreateCarAModal(props) {
                         <Form.Label className={'ms-1'}>Fuel</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Enter fuel type"
+                            placeholder={carDetails.fuel}
                             name="fuel"
                             value={carDetails.fuel}
                             onChange={handleInputChange}
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="price">
+                    <Form.Group>
                         <Form.Label className={'ms-1'}>Price</Form.Label>
                         <Form.Control
                             type="number"
-                            placeholder="Enter car price"
+                            placeholder={carDetails.price}
                             name="price"
                             value={carDetails.price}
                             onChange={handleInputChange}
@@ -94,7 +93,7 @@ export default function CreateCarAModal(props) {
                         <Form.Label className={'ms-1'}>Year</Form.Label>
                         <Form.Control
                             type="number"
-                            placeholder="Enter car year"
+                            placeholder={carDetails.year}
                             name="year"
                             value={carDetails.year}
                             onChange={handleInputChange}
@@ -105,7 +104,7 @@ export default function CreateCarAModal(props) {
                         <Form.Label className={'ms-1'}>Color</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Enter car color"
+                            placeholder={carDetails.color}
                             name="color"
                             value={carDetails.color}
                             onChange={handleInputChange}
@@ -118,7 +117,6 @@ export default function CreateCarAModal(props) {
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            required
                         />
                     </Form.Group>
                 </Modal.Body>
@@ -127,7 +125,7 @@ export default function CreateCarAModal(props) {
                         Cancel
                     </Button>
                     <Button type={"submit"} variant="outline-success">
-                        Save item
+                        Update item
                     </Button>
                 </Modal.Footer>
             </Form>

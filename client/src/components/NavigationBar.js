@@ -1,5 +1,5 @@
 import {Nav} from "react-bootstrap";
-import {RoutesEnum} from "./RoutesEnum";
+import {RoutesEnum} from "./enum/RoutesEnum";
 import React from "react";
 import {useLocation} from "react-router-dom";
 import {useCurrentRole} from "../hooks/useCurrentRole";

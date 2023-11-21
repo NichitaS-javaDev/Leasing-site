@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import MainPage from "./pages/MainPage";
 import CarsPage from "./pages/CarsPage";
 import ApartmentsPage from "./pages/ApartmentsPage";
 import FarmEquipmentPage from "./pages/FarmEquipmentPage";
 import LoginPage from "./pages/LoginPage";
-import {RoutesEnum} from "./components/RoutesEnum";
+import {RoutesEnum} from "./components/enum/RoutesEnum";
 import ClientDashboard from "./pages/ClientDashboard";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

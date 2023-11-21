@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleCheck} from "@fortawesome/free-regular-svg-icons";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
-import {useCurrentClient} from "../hooks/useCurrentClient";
+import {useCurrentClient} from "../../hooks/useCurrentClient";
 
 export default function ClientPersonalDataBox() {
     const [isDisabled, setIsDisabled] = useState(true);

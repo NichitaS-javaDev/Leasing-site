@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import {Button} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
-import ConfirmDelete from "./ConfirmDelete";
+import ConfirmDeleteAModal from "./ConfirmDeleteAModal";
 import UpdateCarAModal from "./UpdateCarAModal";
-import {RoutesEnum} from "./RoutesEnum";
+import {RoutesEnum} from "../enum/RoutesEnum";
 import {useLocation} from "react-router-dom";
 import UpdateApartmentAModal from "./UpdateApartmentAModal";
 
@@ -47,7 +47,7 @@ export default function UpdateDeleteACmp({id}) {
             <Button variant={'light'} className={'admin_btn'} onClick={handleDelShow}>
                 <FontAwesomeIcon icon={faTrash}/>
             </Button>
-            <ConfirmDelete show={showDeleteModal} onHide={handleDelClose} id={id}/>
+            <ConfirmDeleteAModal show={showDeleteModal} onHide={handleDelClose} id={id}/>
             {getUpdateModal()}
         </div>
     )

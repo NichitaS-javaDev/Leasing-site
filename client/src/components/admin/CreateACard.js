@@ -4,7 +4,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import CreateCarAModal from "./CreateCarAModal";
 import {useLocation} from "react-router-dom";
-import {RoutesEnum} from "./RoutesEnum";
+import {RoutesEnum} from "../enum/RoutesEnum";
 import CreateApartmentAModal from "./CreateApartmentAModal";
 import CreateFarmEquipmentAModal from "./CreateFarmEquipmentAModal";
 

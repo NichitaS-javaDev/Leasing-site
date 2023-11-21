@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {createFarmEquipment} from "../api/farmEquipment";
+import {createFarmEquipment} from "../../api/farmEquipment";
 
 export default function CreateFarmEquipmentAModal(props) {
     useEffect(() => {

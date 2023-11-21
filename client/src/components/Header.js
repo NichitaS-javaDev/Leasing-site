@@ -4,7 +4,7 @@ import logo from "../images/logo.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faRightFromBracket, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {useLocation, useNavigate} from "react-router-dom";
-import {RoutesEnum} from "./RoutesEnum";
+import {RoutesEnum} from "./enum/RoutesEnum";
 import {getIsAuthorized, signOut} from "../api/user";
 import NavigationBar from "./NavigationBar";
 

@@ -2,15 +2,17 @@ import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
 import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
-import UpdateDeleteACmp from "../components/UpdateDeleteACmp";
-import CreateACard from "../components/CreateACard";
+import UpdateDeleteACmp from "../components/admin/UpdateDeleteACmp";
+import CreateACard from "../components/admin/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllCars} from "../api/car";
-import GenerateContractCliCmp from "../components/GenerateContractCliCmp";
+import GenerateContractCliCmp from "../components/client/GenerateContractCliCmp";
+import {useCurrentClient} from "../hooks/useCurrentClient";
 
 export default function CarsPage() {
     const [cars, setCars] = useState([]);
     const {isAdmin, isClient} = useCurrentRole();
+    const {clientDetails} = useCurrentClient();
 
     useEffect(() => {
         const fetchCars = async () => {
@@ -50,7 +52,10 @@ export default function CarsPage() {
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={car._id}/>}
-                        {isClient && <GenerateContractCliCmp {...car}/>}
+                        {isClient && <GenerateContractCliCmp car={car} clientDetails={clientDetails}/>}
+                        {/*{isClient && <ConfirmContractGenerationModal car={car} clientDetails={clientDetails}*/}
+                        {/*                                             show={showConfirmModal}*/}
+                        {/*                                             onHide={handleConfirmModalClose}/>}*/}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

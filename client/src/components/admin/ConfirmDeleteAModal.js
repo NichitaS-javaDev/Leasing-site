@@ -1,13 +1,13 @@
 import {Button, Modal} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {RoutesEnum} from "./RoutesEnum";
+import {RoutesEnum} from "../enum/RoutesEnum";
 import {useLocation} from "react-router-dom";
-import {deleteCar} from "../api/car";
-import {deleteApartment} from "../api/apartment";
-import {deleteFarmEquipment} from "../api/farmEquipment";
+import {deleteCar} from "../../api/car";
+import {deleteApartment} from "../../api/apartment";
+import {deleteFarmEquipment} from "../../api/farmEquipment";
 
-export default function ConfirmDelete(props) {
+export default function ConfirmDeleteAModal(props) {
     const location = useLocation();
 
     const handleDelete = async () => {

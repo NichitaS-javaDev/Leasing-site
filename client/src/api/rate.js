@@ -17,7 +17,6 @@ export const getRates = async () => {
 
 export const updateRates = async (newRates) => {
     try {
-        console.log(newRates)
         return await axios.put(`${BASE_URL()}/secure/rates`,{
                 data: newRates
             },

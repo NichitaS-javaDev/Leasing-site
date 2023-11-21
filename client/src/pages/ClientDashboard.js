@@ -5,8 +5,8 @@ import {faCircleNodes, faRightFromBracket, faUserTie} from "@fortawesome/free-so
 import {Button} from "react-bootstrap";
 import React, {useState} from "react";
 import {signOut} from "../api/user";
-import {RoutesEnum} from "../components/RoutesEnum";
-import ClientPersonalDataBox from "../components/ClientPersonalDataBox";
+import {RoutesEnum} from "../components/enum/RoutesEnum";
+import ClientPersonalDataBox from "../components/client/ClientPersonalDataBox";
 
 export default function ClientDashboard() {
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function ClientDashboard() {
         clientData: 'clientData',
         clientContracts: 'clientContracts'
     }
-    const [renderedCmp, setRenderedCmp] = useState(Buttons.clientData);
+    const [renderedCmp, setRenderedCmp] = useState(Buttons.clientContracts);
 
     const handleInfoBtnClick = () => {
         setRenderedCmp(Buttons.clientData)
