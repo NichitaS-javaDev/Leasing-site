@@ -5,19 +5,22 @@ import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "react-bootstrap";
 import LeasingCalcAConfigModal from "./LeasingCalcAConfigModal";
 import {useCurrentRole} from "../hooks/useCurrentRole";
+import {useCalculateMonthlyPayment} from "../hooks/useCalculateMonthlyPayment";
+import {LeasingItemType} from "./enum/LeasingItemTypeEnum";
 
 export default function LeasingCalc() {
-    const [item, setItem] = useState('auto');
+    const [item, setItem] = useState(LeasingItemType.Auto);
     const [carPrice, setCarPrice] = useState(50000);
     const [downPayment, setDownPayment] = useState(Math.round(carPrice * 0.2));
     const [loanTerm, setLoanTerm] = useState(36);
-    const [monthlyPayment, setMonthlyPayment] = useState(1350);
-    const [insurance, setInsurance] = useState(405)
-    const [interestRates, setInterestRates] = useState({
-        carRate: 0,
-        apartmentRate: 0,
-        farmRate: 0
-    });
+    const {
+        monthlyPayment,
+        insurance,
+        interestRates,
+        setInterestRates,
+        calculateMonthlyPayment
+    } = useCalculateMonthlyPayment({item, carPrice, downPayment, loanTerm})
+
     const {isAdmin} = useCurrentRole();
     const [editModalShow, setEditModalShow] = useState(false);
     const modalProps = {
@@ -26,10 +29,7 @@ export default function LeasingCalc() {
         rates: interestRates
     }
 
-    const handleItemChange = (e) => {
-        setItem(e.target.value);
-    }
-
+    const handleItemChange = (e) => setItem(e.target.value);
     const handleEditRates = () => setEditModalShow(true)
 
     useEffect(() => {
@@ -45,38 +45,15 @@ export default function LeasingCalc() {
         fetchRates();
     }, [])
 
-    const calculateMonthlyPayment = () => {
-        let rate;
-        switch (item) {
-            case 'auto':
-                rate = interestRates.carRate;
-                break;
-            case 'imobil':
-                rate = interestRates.apartmentRate;
-                break;
-            case 'tehnica_agricola':
-                rate = interestRates.farmRate;
-                break;
-            default:
-                rate = interestRates.carRate;
-        }
-
-        const principal = carPrice - downPayment;
-        const monthlyInterestRate = (rate / 100) / 12;
-        const monthlyPayment = (principal * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -loanTerm));
-        setMonthlyPayment(monthlyPayment.toFixed(2));
-        setInsurance((carPrice * 0.034).toFixed(2));
-    }
-
     return (
         <div className={"leasing-calc"}>
             <div className={"calc-val"}>
                 <div className={"calc-cmp-drop"}>
                     <label>
                         <select value={item} onChange={handleItemChange} className={"calc-cmp-drop"}>
-                            <option value="auto">Autoturisme</option>
-                            <option value="imobil">Imobil</option>
-                            <option value="tehnica_agricola">Tehnica Agricola</option>
+                            <option value={LeasingItemType.Auto}>Autoturisme</option>
+                            <option value={LeasingItemType.Apartments}>Imobil</option>
+                            <option value={LeasingItemType.FarmEquipment}>Tehnica Agricola</option>
                         </select>
                     </label>
                 </div>
@@ -93,6 +70,7 @@ export default function LeasingCalc() {
                                 setCarPrice(e.target.value);
                                 setDownPayment(Math.round(e.target.value * 0.2))
                                 calculateMonthlyPayment()
+
                             }}
                             className={"calc-input calc-input-price"}
                         />
