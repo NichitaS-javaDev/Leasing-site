@@ -1,19 +1,56 @@
 import {Button, Form, Modal} from "react-bootstrap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {generateContract} from "../../api/contract";
+import {RoutesEnum} from "../enum/RoutesEnum";
+import {useCalculateMonthlyPayment} from "../../hooks/useCalculateMonthlyPayment";
+import {LeasingItemType} from "../enum/LeasingItemTypeEnum";
 
-export default function ConfirmContractGenerationModal({car, clientDetails, show, onHide}) {
-    const [rate, setRate] = useState(36);
-    const [downPayment, setDownPayment] = useState(car.price * 0.2);
-    const {img, ...carWithoutImg} = car;
+export default function ConfirmContractGenerationModal({
+                                                           item,
+                                                           clientDetails,
+                                                           interestRates,
+                                                           show,
+                                                           onHide,
+                                                           itemLocation
+                                                       }) {
+    const [term, setTerm] = useState(36);
+    const [downPayment, setDownPayment] = useState(Math.round(item.price * 0.2));
+    const {img, ...itemWithoutImg} = item;
     const clientFullName = clientDetails.surname.concat(' ').concat(clientDetails.name);
+    const {monthlyPayment, insurance, calculateMonthlyPayment} = useCalculateMonthlyPayment({
+        item: LeasingItemType.Auto,
+        carPrice: item.price,
+        downPayment: downPayment,
+        interestRates: interestRates,
+        loanTerm: term
+    })
+
+    useEffect(() => {
+        calculateMonthlyPayment()
+    }, [])
+
+    const calculateTotalPrice = () => {
+        return (monthlyPayment * term + downPayment).toFixed(2)
+    }
+
     const handleGenerateContractBtn = async () => {
-        const response = await generateContract({
-            ...carWithoutImg,
-            clientName: clientFullName,
-            clientEmail: clientDetails.email
-        });
-        window.open(response.data, '_self');
+        if (itemLocation === RoutesEnum.cars) {
+            try {
+                const response = await generateContract({
+                    ...itemWithoutImg,
+                    clientName: clientFullName,
+                    clientEmail: clientDetails.email,
+                    totalPrice: calculateTotalPrice(),
+                    monthlyPayment: monthlyPayment,
+                    downPayment: downPayment,
+                    interestRate: interestRates.carRate,
+                    term: term,
+                    insurance: insurance
+                });
+                window.open(response.data, '_self');
+            } catch (error) {
+            }
+        }
     }
 
     return (
@@ -25,15 +62,21 @@ export default function ConfirmContractGenerationModal({car, clientDetails, show
                         type={"number"}
                         min={0}
                         max={60}
-                        value={rate}
-                        onChange={(e) => setRate(e.target.value)}
+                        value={term}
+                        onChange={(e) => {
+                            setTerm(e.target.value)
+                            calculateMonthlyPayment()
+                        }}
                     /> months and <input
                         type={"number"}
-                        min={car.price * 0.2}
+                        min={Math.round(item.price * 0.2)}
                         max={100000}
-                        value={downPayment.toFixed(2)}
-                        onChange={(e) => setDownPayment((e.target.value).toFixed(2))}
-                    /> as down payment?</span>
+                        value={downPayment}
+                        onChange={(e) => {
+                            setDownPayment((e.target.value).toFixed(2))
+                            calculateMonthlyPayment()
+                        }}
+                    /> as down payment ?</span>
                 </Modal.Body>
                 <Modal.Footer className={'border-0'}>
                     <Button variant={'light'} onClick={onHide}>Cancel</Button>

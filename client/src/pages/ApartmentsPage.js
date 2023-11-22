@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
 import Card from "react-bootstrap/Card";
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/admin/UpdateDeleteACmp";
 import CreateACard from "../components/admin/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllApartments} from "../api/apartment";
 import GenerateContractCliCmp from "../components/client/GenerateContractCliCmp";
+import {useCurrentClient} from "../hooks/useCurrentClient";
 
 export default function ApartmentsPage() {
+    const location = useLocation();
     const [apartments, setApartments] = useState([]);
     const {isAdmin, isClient} = useCurrentRole();
+    const {clientDetails} = useCurrentClient();
 
     useEffect(() => {
         const fetchApartments = async () => {
@@ -52,7 +55,9 @@ export default function ApartmentsPage() {
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={apartment._id}/>}
-                        {isClient && <GenerateContractCliCmp/>}
+                        {isClient && <GenerateContractCliCmp item={apartment}
+                                                             clientDetails={clientDetails}
+                                                             itemLocation={location}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

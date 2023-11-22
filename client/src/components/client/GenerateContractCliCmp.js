@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import ConfirmContractGenerationModal from "./ConfirmContractGenerationModal";
 import {useState} from "react";
 
-export default function GenerateContractCliCmp({car, clientDetails}) {
+export default function GenerateContractCliCmp({item, clientDetails, interestRates, itemLocation}) {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const handleConfirmModalClose = () => {
         setShowConfirmModal(false)
@@ -20,10 +20,12 @@ export default function GenerateContractCliCmp({car, clientDetails}) {
                     <FontAwesomeIcon icon={faFileSignature}/>
                 </Button>
             </div>
-            <ConfirmContractGenerationModal car={car}
+            <ConfirmContractGenerationModal item={item}
                                             clientDetails={clientDetails}
+                                            interestRates={interestRates}
                                             show={showConfirmModal}
-                                            onHide={handleConfirmModalClose}/>
+                                            onHide={handleConfirmModalClose}
+                                            itemLocation={itemLocation}/>
         </>
     )
 }

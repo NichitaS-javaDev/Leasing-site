@@ -1,12 +1,7 @@
 import {useState} from "react";
 import {LeasingItemType} from "../components/enum/LeasingItemTypeEnum";
 
-export function useCalculateMonthlyPayment({item, carPrice, downPayment, loanTerm}) {
-    const [interestRates, setInterestRates] = useState({
-        carRate: 0,
-        apartmentRate: 0,
-        farmRate: 0
-    });
+export function useCalculateMonthlyPayment({item, carPrice, downPayment, interestRates, loanTerm}) {
     const [monthlyPayment, setMonthlyPayment] = useState(1350);
     const [insurance, setInsurance] = useState(405)
 
@@ -36,11 +31,6 @@ export function useCalculateMonthlyPayment({item, carPrice, downPayment, loanTer
     return {
         monthlyPayment,
         insurance,
-        carPrice,
-        downPayment,
-        loanTerm,
-        interestRates,
-        setInterestRates,
         calculateMonthlyPayment
     }
 }

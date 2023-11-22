@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
 import Card from "react-bootstrap/Card";
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/admin/UpdateDeleteACmp";
 import CreateACard from "../components/admin/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllFarmEquipment} from "../api/farmEquipment";
 import GenerateContractCliCmp from "../components/client/GenerateContractCliCmp";
+import {useCurrentClient} from "../hooks/useCurrentClient";
 
 export default function FarmEquipmentPage() {
+    const location = useLocation();
     const [farmEquipments, setFarmEquipment] = useState([]);
     const {isAdmin, isClient} = useCurrentRole();
+    const {clientDetails} = useCurrentClient();
 
     useEffect(() => {
         const fetchFarmEquipment = async () => {
@@ -54,7 +57,9 @@ export default function FarmEquipmentPage() {
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={farmEquipment._id}/>}
-                        {isClient && <GenerateContractCliCmp/>}
+                        {isClient && <GenerateContractCliCmp item={farmEquipment}
+                                                             clientDetails={clientDetails}
+                                                             itemLocation={location}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
 import Card from "react-bootstrap/Card";
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/admin/UpdateDeleteACmp";
 import CreateACard from "../components/admin/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllCars} from "../api/car";
 import GenerateContractCliCmp from "../components/client/GenerateContractCliCmp";
 import {useCurrentClient} from "../hooks/useCurrentClient";
+import {useInterestRates} from "../hooks/useInterestRates";
 
 export default function CarsPage() {
+    const location = useLocation();
     const [cars, setCars] = useState([]);
     const {isAdmin, isClient} = useCurrentRole();
+    const {interestRates} = useInterestRates();
     const {clientDetails} = useCurrentClient();
 
     useEffect(() => {
@@ -52,7 +55,10 @@ export default function CarsPage() {
                             </Card.Body>
                         </Link>
                         {isAdmin && <UpdateDeleteACmp id={car._id}/>}
-                        {isClient && <GenerateContractCliCmp car={car} clientDetails={clientDetails}/>}
+                        {isClient && <GenerateContractCliCmp item={car}
+                                                             clientDetails={clientDetails}
+                                                             interestRates={interestRates}
+                                                             itemLocation={location.pathname}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}
