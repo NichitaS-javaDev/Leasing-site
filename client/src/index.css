@@ -175,8 +175,13 @@ footer {
 .vehicle-card,
 .apartment-card,
 .farmEquipment-card,
+.contract-card,
 .add-card {
     margin: 1% 2% 2%;
+    display: inline-block;
+    width: 18.6rem;
+    color: #212529;
+    text-decoration: none;
 }
 
 .add-card {
@@ -184,15 +189,15 @@ footer {
     cursor: pointer;
 }
 
-.vehicle-card-link,
-.apartment-card-link,
-.farmEquipment-card-link,
-.add-card {
-    display: inline-block;
-    width: 18.6rem;
-    color: #212529;
-    text-decoration: none;
-}
+/*.vehicle-card-link,*/
+/*.apartment-card-link,*/
+/*.farmEquipment-card-link,*/
+/*.add-card {*/
+/*    display: inline-block;*/
+/*    width: 18.6rem;*/
+/*    color: #212529;*/
+/*    text-decoration: none;*/
+/*}*/
 
 .vehicles-box,
 .apartments-box,
@@ -238,11 +243,17 @@ input[type="file"]::file-selector-button {
     color: #212529;
 }
 
-.client-data-box {
+.client-data-box,
+.client-contracts-box {
     width: 85%;
     padding: 2% 2% 1%;
     border-radius: 10px;
     border: solid #e2e6e9 3px;
+}
+
+.client-contracts-box {
+    border: 0;
+    padding: 0;
 }
 
 .client-data-form-group {
@@ -250,7 +261,7 @@ input[type="file"]::file-selector-button {
     margin-left: 5%;
 }
 
-.client-data-form-group-l1{
+.client-data-form-group-l1 {
     margin-left: 2%;
 }
 
@@ -262,7 +273,6 @@ input[type="file"]::file-selector-button {
 .client-data-contact-control,
 .client-data-name-control,
 .client-data-pers-info-control,
-.client-data-id-control,
 .client-data-emp-control,
 .client-pass-pic {
     border-radius: 15px;
@@ -270,21 +280,17 @@ input[type="file"]::file-selector-button {
 }
 
 .client-data-name-control {
-    width: 75vh;
+    width: 35vw;
 }
 
 .client-data-contact-control {
-    width: 50vh;
+    width: 20vw;
 }
 
 .client-data-pers-info-control {
-    width: 35vh;
-}
-
-.client-data-id-control {
-    width: 40vh;
+    width: 17vw;
 }
 
 .client-data-emp-control {
-    width: 50vh;
+    width: 20vw;
 }

@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import ConfirmContractGenerationModal from "./ConfirmContractGenerationModal";
 import {useState} from "react";
 
-export default function GenerateContractCliCmp({item, clientDetails, interestRates, itemLocation}) {
+export default function GenerateContractCmp({item, clientDetails, interestRates, itemLocation}) {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const handleConfirmModalClose = () => {
         setShowConfirmModal(false)

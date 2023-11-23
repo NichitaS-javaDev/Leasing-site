@@ -15,3 +15,13 @@ export const generateContract = async (car) => {
         throw error;
     }
 }
+
+export const getAllContracts = async () => {
+    try {
+        return await axios.get(`${BASE_URL()}/secure/contract`, {
+            withCredentials: true
+        })
+    } catch (error) {
+        throw error;
+    }
+}

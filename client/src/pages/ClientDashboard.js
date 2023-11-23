@@ -7,6 +7,7 @@ import React, {useState} from "react";
 import {signOut} from "../api/user";
 import {RoutesEnum} from "../components/enum/RoutesEnum";
 import ClientPersonalDataBox from "../components/client/ClientPersonalDataBox";
+import ClientContractsBox from "../components/client/ClientContractsBox";
 
 export default function ClientDashboard() {
     const navigate = useNavigate();
@@ -56,9 +57,12 @@ export default function ClientDashboard() {
                 </span>
             </div>
             <div className={'d-flex justify-content-center'}>
-                {renderedCmp === Buttons.clientData &&
+                {renderedCmp === Buttons.clientData ?
                     <div className={'mt-3 client-data-box'}>
                         <ClientPersonalDataBox/>
+                    </div> :
+                    <div className={"mt-1 client-contracts-box"}>
+                        <ClientContractsBox/>
                     </div>
                 }
             </div>

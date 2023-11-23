@@ -73,7 +73,7 @@ export default function ConfirmContractGenerationModal({
                         max={100000}
                         value={downPayment}
                         onChange={(e) => {
-                            setDownPayment((e.target.value).toFixed(2))
+                            setDownPayment(e.target.value)
                             calculateMonthlyPayment()
                         }}
                     /> as down payment ?</span>

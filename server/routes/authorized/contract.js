@@ -2,6 +2,17 @@ const express = require("express");
 const router = express.Router();
 const uuid = require("uuid");
 const axios = require("axios");
+const Contract = require("../../model/Contract");
+const Car = require("../../model/Car");
+
+router.get('/', async function (req, res) {
+    try {
+        const contracts = await Contract.find();
+        res.json(contracts);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
 
 router.post('/generate', async (req, res) => {
     const BOLD_SIGN_URL = process.env.BOLDSIGN_BASE_URL
@@ -101,6 +112,19 @@ router.post('/generate', async (req, res) => {
             params: {documentId: docId, signerEmail: 'nsaharov33@gmail.com', redirectUrl: redirectUrl},
         });
         const signUrl = result.data.signLink;
+
+        const contractCar = await Car.findOne({'_id': car._id});
+
+        const contractDetails = {
+            _id: uuid.v4(),
+            model: car.model,
+            totalPrice: car.totalPrice,
+            paidAmount: car.downPayment,
+            docId: docId,
+            img: contractCar.img
+        }
+
+        await Contract.create({...contractDetails})
 
         res.json(signUrl)
     } catch (error) {
