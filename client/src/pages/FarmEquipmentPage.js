@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
 import Card from "react-bootstrap/Card";
-import {Link, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/admin/UpdateDeleteACmp";
 import CreateACard from "../components/admin/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllFarmEquipment} from "../api/farmEquipment";
-import GenerateContractCliCmp from "../components/client/GenerateContractCliCmp";
+import GenerateContractCmp from "../components/client/GenerateContractCmp";
 import {useCurrentClient} from "../hooks/useCurrentClient";
+import {useInterestRates} from "../hooks/useInterestRates";
 
 export default function FarmEquipmentPage() {
     const location = useLocation();
     const [farmEquipments, setFarmEquipment] = useState([]);
+    const {interestRates} = useInterestRates();
     const {isAdmin, isClient} = useCurrentRole();
     const {clientDetails} = useCurrentClient();
 
@@ -34,7 +36,7 @@ export default function FarmEquipmentPage() {
             <div className={"farmEquipments-box"}>
                 {farmEquipments.map((farmEquipment) => (
                     <Card className={"farmEquipment-card"}>
-                        <Link to={`/details/${farmEquipment._id}`} className={"farmEquipment-card-link"}>
+                        {/*<Link to={`/details/${farmEquipment._id}`} className={"farmEquipment-card-link"}>*/}
                             <Card.Img variant="top" src={`data:image/jpeg;base64,${farmEquipment.img}`}/>
                             <Card.Body>
                                 <Card.Title><span
@@ -55,11 +57,12 @@ export default function FarmEquipmentPage() {
                                     </div>
                                 </Card.Text>
                             </Card.Body>
-                        </Link>
+                        {/*</Link>*/}
                         {isAdmin && <UpdateDeleteACmp id={farmEquipment._id}/>}
-                        {isClient && <GenerateContractCliCmp item={farmEquipment}
-                                                             clientDetails={clientDetails}
-                                                             itemLocation={location}/>}
+                        {isClient && <GenerateContractCmp item={farmEquipment}
+                                                          clientDetails={clientDetails}
+                                                          interestRates={interestRates}
+                                                          itemLocation={location}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

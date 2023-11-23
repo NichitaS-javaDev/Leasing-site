@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
 import Card from "react-bootstrap/Card";
-import {Link, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/admin/UpdateDeleteACmp";
 import CreateACard from "../components/admin/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllCars} from "../api/car";
-import GenerateContractCliCmp from "../components/client/GenerateContractCliCmp";
+import GenerateContractCmp from "../components/client/GenerateContractCmp";
 import {useCurrentClient} from "../hooks/useCurrentClient";
 import {useInterestRates} from "../hooks/useInterestRates";
 
@@ -36,7 +36,7 @@ export default function CarsPage() {
             <div className={"vehicles-box"}>
                 {cars.map((car) => (
                     <Card className={"vehicle-card"}>
-                        <Link to={`/details/${car._id}`} className={"vehicle-card-link"}>
+                        {/*<Link to={`/details/${car._id}`} className={"vehicle-card-link"}>*/}
                             <Card.Img variant="top" src={`data:image/jpeg;base64,${car.img}`}/>
                             <Card.Body>
                                 <Card.Title><span className={"card-text-tl"}>{car.model}</span></Card.Title>
@@ -53,12 +53,12 @@ export default function CarsPage() {
                                     </div>
                                 </Card.Text>
                             </Card.Body>
-                        </Link>
+                        {/*</Link>*/}
                         {isAdmin && <UpdateDeleteACmp id={car._id}/>}
-                        {isClient && <GenerateContractCliCmp item={car}
-                                                             clientDetails={clientDetails}
-                                                             interestRates={interestRates}
-                                                             itemLocation={location.pathname}/>}
+                        {isClient && <GenerateContractCmp item={car}
+                                                          clientDetails={clientDetails}
+                                                          interestRates={interestRates}
+                                                          itemLocation={location.pathname}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}

@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import Header from "../components/Header";
 import Card from "react-bootstrap/Card";
-import {Link, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import UpdateDeleteACmp from "../components/admin/UpdateDeleteACmp";
 import CreateACard from "../components/admin/CreateACard";
 import {useCurrentRole} from "../hooks/useCurrentRole";
 import {getAllApartments} from "../api/apartment";
-import GenerateContractCliCmp from "../components/client/GenerateContractCliCmp";
+import GenerateContractCmp from "../components/client/GenerateContractCmp";
 import {useCurrentClient} from "../hooks/useCurrentClient";
+import {useInterestRates} from "../hooks/useInterestRates";
 
 export default function ApartmentsPage() {
     const location = useLocation();
     const [apartments, setApartments] = useState([]);
+    const {interestRates} = useInterestRates();
     const {isAdmin, isClient} = useCurrentRole();
     const {clientDetails} = useCurrentClient();
 
@@ -34,7 +36,7 @@ export default function ApartmentsPage() {
             <div className={"apartments-box"}>
                 {apartments.map((apartment) => (
                     <Card className={"apartment-card"}>
-                        <Link to={`/details/${apartment._id}`} className={"apartment-card-link"}>
+                        {/*<Link to={`/details/${apartment._id}`} className={"apartment-card-link"}>*/}
                             <Card.Img variant="top" src={`data:image/jpeg;base64,${apartment.img}`}/>
                             <Card.Body>
                                 <Card.Title><span
@@ -53,11 +55,12 @@ export default function ApartmentsPage() {
                                     </div>
                                 </Card.Text>
                             </Card.Body>
-                        </Link>
+                        {/*</Link>*/}
                         {isAdmin && <UpdateDeleteACmp id={apartment._id}/>}
-                        {isClient && <GenerateContractCliCmp item={apartment}
-                                                             clientDetails={clientDetails}
-                                                             itemLocation={location}/>}
+                        {isClient && <GenerateContractCmp item={apartment}
+                                                          clientDetails={clientDetails}
+                                                          interestRates={interestRates}
+                                                          itemLocation={location}/>}
                     </Card>
                 ))}
                 {isAdmin && <CreateACard/>}
