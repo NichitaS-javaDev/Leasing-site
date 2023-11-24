@@ -14,6 +14,25 @@ router.get('/', async function (req, res) {
     }
 });
 
+router.put('/:id', async function (req, res) {
+    const {id} = req.params;
+    try {
+        const contract = await Contract.findOne({'_id': id});
+
+        if (!contract) {
+            return res.status(404).json({message: 'Car not found'});
+        }
+
+        contract['paidAmount'] = contract['paidAmount'] + req.body.paymentSum
+
+        await Contract.updateOne({'_id': id}, contract)
+            .then(result => res.json(result))
+            .catch(error => res.status(500).json({message: error.message}))
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
 router.post('/generate', async (req, res) => {
     const BOLD_SIGN_URL = process.env.BOLDSIGN_BASE_URL
     const sendUrl = `${BOLD_SIGN_URL}/template/send`;
@@ -120,6 +139,7 @@ router.post('/generate', async (req, res) => {
             model: car.model,
             totalPrice: car.totalPrice,
             paidAmount: car.downPayment,
+            monthlyPayment: car.monthlyPayment,
             docId: docId,
             img: contractCar.img
         }

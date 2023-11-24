@@ -55,9 +55,8 @@ export default function ConfirmContractGenerationModal({
 
     return (
         <Modal show={show} size='lg' aria-labelledby="contained-modal-title-center" centered style={{fontSize: 17}}>
-            <Form>
+            <Form onSubmit={handleGenerateContractBtn}>
                 <Modal.Body>
-                    {}
                     <span>Are you sure you want to enter into a leasing agreement for a period of  <input
                         type={"number"}
                         min={0}
@@ -80,7 +79,7 @@ export default function ConfirmContractGenerationModal({
                 </Modal.Body>
                 <Modal.Footer className={'border-0'}>
                     <Button variant={'light'} onClick={onHide}>Cancel</Button>
-                    <Button variant={'success'} onClick={handleGenerateContractBtn}>Generate</Button>
+                    <Button type={"submit"} variant={'success'}>Generate</Button>
                 </Modal.Footer>
             </Form>
         </Modal>

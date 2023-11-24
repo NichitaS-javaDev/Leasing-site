@@ -25,3 +25,15 @@ export const getAllContracts = async () => {
         throw error;
     }
 }
+
+export const updateContract = async ({id, paymentSum}) => {
+    try {
+        return await axios.put(`${BASE_URL()}/secure/contract/${id}`, {
+            paymentSum: paymentSum
+        }, {
+            withCredentials: true
+        })
+    } catch (error) {
+        throw error;
+    }
+}

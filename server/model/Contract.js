@@ -5,6 +5,7 @@ const contractSchema = new mongoose.Schema({
     model: String,
     totalPrice: Number,
     paidAmount: Number,
+    monthlyPayment: Number,
     docId: String,
     img: String
 });
