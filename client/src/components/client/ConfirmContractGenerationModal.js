@@ -1,4 +1,4 @@
-import {Button, Form, Modal} from "react-bootstrap";
+import {Button, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {generateContract} from "../../api/contract";
 import {RoutesEnum} from "../enum/RoutesEnum";
@@ -47,6 +47,7 @@ export default function ConfirmContractGenerationModal({
                     term: term,
                     insurance: insurance
                 });
+                onHide();
                 window.open(response.data, '_self');
             } catch (error) {
             }
@@ -55,7 +56,7 @@ export default function ConfirmContractGenerationModal({
 
     return (
         <Modal show={show} size='lg' aria-labelledby="contained-modal-title-center" centered style={{fontSize: 17}}>
-            <Form onSubmit={handleGenerateContractBtn}>
+            {/*<Form onSubmit={handleGenerateContractBtn}>*/}
                 <Modal.Body>
                     <span>Are you sure you want to enter into a leasing agreement for a period of  <input
                         type={"number"}
@@ -79,9 +80,9 @@ export default function ConfirmContractGenerationModal({
                 </Modal.Body>
                 <Modal.Footer className={'border-0'}>
                     <Button variant={'light'} onClick={onHide}>Cancel</Button>
-                    <Button type={"submit"} variant={'success'}>Generate</Button>
+                    <Button variant={'success'} onClick={handleGenerateContractBtn}>Generate</Button>
                 </Modal.Footer>
-            </Form>
+            {/*</Form>*/}
         </Modal>
     )
 }

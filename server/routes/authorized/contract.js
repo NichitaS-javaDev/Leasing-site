@@ -23,7 +23,7 @@ router.put('/:id', async function (req, res) {
             return res.status(404).json({message: 'Car not found'});
         }
 
-        contract['paidAmount'] = contract['paidAmount'] + req.body.paymentSum
+        contract['paidAmount'] = (contract['paidAmount'] + parseFloat(req.body.paymentSum)).toFixed(2)
 
         await Contract.updateOne({'_id': id}, contract)
             .then(result => res.json(result))

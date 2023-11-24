@@ -3,7 +3,7 @@ import {Button, Form, Modal} from "react-bootstrap";
 import {updateContract} from "../../api/contract";
 
 export default function ContractPaymentModal({id, totalPrice, monthlyPayment, paidAmount, show, onHide}) {
-    const [paymentSum, setPaymentSum] = useState(monthlyPayment);
+    const [paymentSum, setPaymentSum] = useState(monthlyPayment.toFixed(2));
 
     const handlePayment = async () => {
         try {

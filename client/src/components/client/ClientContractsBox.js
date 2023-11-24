@@ -9,12 +9,14 @@ import ContractPaymentModal from "./ContractPaymentModal";
 
 export default function ClientContractsBox() {
     const [contracts, setContracts] = useState([]);
+    const [selectedContract, setSelectedContract] = useState(null);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
 
     const handleModalClose = () => {
         setShowPaymentModal(false)
     }
-    const handleModalOpen = () => {
+    const handleModalOpen = (contract) => {
+        setSelectedContract(contract)
         setShowPaymentModal(true)
     }
 
@@ -34,49 +36,50 @@ export default function ClientContractsBox() {
     return (
         <>
             {contracts.map((contract) => (
-                <>
-                    <Card className={"contract-card"}>
-                        <Card.Img variant="top" src={`data:image/jpeg;base64,${contract.img}`}/>
-                        <Card.Body>
-                            <Card.Title><span className={"card-text-tl"}>{contract.model}</span></Card.Title>
-                            <Card.Text>
-                                <div className={'mt-3'}>
+                <Card className={"contract-card"}>
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${contract.img}`}/>
+                    <Card.Body>
+                        <Card.Title><span className={"card-text-tl"}>{contract.model}</span></Card.Title>
+                        <Card.Text>
+                            <div className={'mt-3'}>
                                     <span
                                         className={"card-text-tl"}>Pret total: {contract.totalPrice.toLocaleString('en-US')} EUR
                                     </span>
-                                </div>
-                                <div className={'mt-2'}>
+                            </div>
+                            <div className={'mt-2'}>
                                     <span
                                         className={"card-text-tl"}>Plata lunara: {contract.monthlyPayment.toLocaleString('en-US')} EUR
                                     </span>
-                                </div>
-                                <div className={'mt-2'}>
+                            </div>
+                            <div className={'mt-2'}>
                                     <span
                                         className={"card-text-tl"}>Suma achitata: {contract.paidAmount.toLocaleString('en-US')} EUR
                                     </span>
-                                </div>
-                                <ProgressBar now={Math.round(contract.paidAmount / contract.totalPrice * 100)}
-                                             className={'mt-3'}/>
-                            </Card.Text>
-
-                        </Card.Body>
-                        <div className={'d-flex justify-content-end'}>
-                            <Button variant={'light'} className={'admin_btn'}>
-                                <FontAwesomeIcon icon={faExpand}/>
-                            </Button>
-                            <Button variant={'light'} className={'admin_btn'}>
-                                <FontAwesomeIcon icon={faCreditCard} onClick={handleModalOpen}/>
-                            </Button>
-                        </div>
-                    </Card>
-                    <ContractPaymentModal id={contract._id}
-                                          monthlyPayment={contract.monthlyPayment}
-                                          paidAmount={contract.paidAmount}
-                                          totalPrice={contract.totalPrice}
-                                          show={showPaymentModal}
-                                          onHide={handleModalClose}/>
-                </>
+                            </div>
+                            <ProgressBar now={Math.round(contract.paidAmount / contract.totalPrice * 100)}
+                                         className={'mt-3'}/>
+                        </Card.Text>
+                    </Card.Body>
+                    <div className={'d-flex justify-content-end'}>
+                        <Button variant={'light'} className={'admin_btn'}>
+                            <FontAwesomeIcon icon={faExpand}/>
+                        </Button>
+                        <Button variant={'light'} className={'admin_btn'}>
+                            <FontAwesomeIcon icon={faCreditCard} onClick={() => handleModalOpen(contract)}/>
+                        </Button>
+                    </div>
+                </Card>
             ))}
+            {
+                selectedContract !== null &&
+                <ContractPaymentModal id={selectedContract._id}
+                                      monthlyPayment={selectedContract.monthlyPayment}
+                                      paidAmount={selectedContract.paidAmount}
+                                      totalPrice={selectedContract.totalPrice}
+                                      show={showPaymentModal}
+                                      onHide={handleModalClose}
+                                      key={selectedContract._id}/>
+            }
         </>
     )
 }
