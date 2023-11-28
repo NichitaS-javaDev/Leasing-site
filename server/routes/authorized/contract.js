@@ -14,6 +14,29 @@ router.get('/', async function (req, res) {
     }
 });
 
+router.get('/view/:docId', async function (req, res) {
+    const BOLD_SIGN_URL = process.env.BOLDSIGN_BASE_URL
+    const downloadUrl = `${BOLD_SIGN_URL}/document/download`;
+    const headers = {
+        'X-API-KEY': process.env.BOLDSIGN_API_KEY
+    };
+    const {docId} = req.params;
+
+    try {
+        const response = await axios.get(downloadUrl, {
+            headers: headers,
+            params: {documentId: docId},
+            responseType: 'arraybuffer'
+        })
+
+        const base64Data = Buffer.from(response.data).toString('base64');
+
+        res.send(base64Data)
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
 router.put('/:id', async function (req, res) {
     const {id} = req.params;
     try {

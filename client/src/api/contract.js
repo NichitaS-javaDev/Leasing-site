@@ -16,6 +16,16 @@ export const generateContract = async (car) => {
     }
 }
 
+export const viewContract = async (docId) => {
+    try {
+        return await axios.get(`${BASE_URL()}/secure/contract/view/${docId}`, {
+            withCredentials: true
+        })
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const getAllContracts = async () => {
     try {
         return await axios.get(`${BASE_URL()}/secure/contract`, {

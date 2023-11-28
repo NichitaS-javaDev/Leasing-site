@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import Card from "react-bootstrap/Card";
-import {getAllContracts} from "../../api/contract";
+import {getAllContracts, viewContract} from "../../api/contract";
 import {Button, ProgressBar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCreditCard, faExpand} from "@fortawesome/free-solid-svg-icons";
 import ContractPaymentModal from "./ContractPaymentModal";
-
 
 export default function ClientContractsBox() {
     const [contracts, setContracts] = useState([]);
@@ -18,6 +17,24 @@ export default function ClientContractsBox() {
     const handleModalOpen = (contract) => {
         setSelectedContract(contract)
         setShowPaymentModal(true)
+    }
+
+    const handleViewContractBtn = async (docId) => {
+
+        try {
+            const response = await viewContract(docId)
+            const pdfDataUrl = `data:application/pdf;base64,${response.data}`;
+            const newTab = window.open();
+            newTab.document.write(
+                `<iframe style="position:fixed; 
+                        top:0; left:0; bottom:0; right:0; 
+                        width:100%; height:100%; border:none; 
+                        margin:0; padding:0; overflow:hidden; z-index:1;" 
+                        src='${pdfDataUrl}'>
+                </iframe>`);
+        } catch (error) {
+
+        }
     }
 
     useEffect(() => {
@@ -62,7 +79,7 @@ export default function ClientContractsBox() {
                     </Card.Body>
                     <div className={'d-flex justify-content-end'}>
                         <Button variant={'light'} className={'admin_btn'}>
-                            <FontAwesomeIcon icon={faExpand}/>
+                            <FontAwesomeIcon icon={faExpand} onClick={() => handleViewContractBtn(contract.docId)}/>
                         </Button>
                         <Button variant={'light'} className={'admin_btn'}>
                             <FontAwesomeIcon icon={faCreditCard} onClick={() => handleModalOpen(contract)}/>
