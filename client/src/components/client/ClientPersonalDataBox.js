@@ -1,14 +1,25 @@
 import {Button, Form} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleCheck} from "@fortawesome/free-regular-svg-icons";
-import {faPen} from "@fortawesome/free-solid-svg-icons";
+import {faEllipsis, faPen} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import {useCurrentClient} from "../../hooks/useCurrentClient";
+import ConfirmUpdatePersonalDataModal from "./ConfirmUpdatePersonalDataModal";
 
 export default function ClientPersonalDataBox() {
+    const [renderKey, setRenderKey] = useState(0);
     const [isDisabled, setIsDisabled] = useState(true);
     const handleEditClick = () => setIsDisabled(!isDisabled);
-    const {clientDetails, setClientDetails} = useCurrentClient();
+    const {clientDetails, setClientDetails, isDataApproved} = useCurrentClient(renderKey);
+
+    const [showConfirmUpdateModal, setShowConfirmUpdateModal] = useState(false);
+    const handleConfirmUpdateShow = (event) => {
+        event.preventDefault();
+        setShowConfirmUpdateModal(true);
+        handleEditClick();
+    }
+    const handleConfirmUpdateClose = () => setShowConfirmUpdateModal(false);
+    const handleRerender = () => setRenderKey(prevKey => prevKey + 1);
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -29,13 +40,13 @@ export default function ClientPersonalDataBox() {
 
     return (
         <>
-            <Form>
+            <Form onSubmit={handleConfirmUpdateShow}>
                 <div className={'d-flex'}>
                     <Form.Group className={'client-data-form-group-l1'}>
                         <Form.Label className={'ms-1'}>Nume</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.name}
+                            value={clientDetails.name}
                             name="name"
                             onChange={handleInputChange}
                             className={'client-data-name-control'}
@@ -47,7 +58,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Prenume</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.surname}
+                            value={clientDetails.surname}
                             name="surname"
                             onChange={handleInputChange}
                             className={'client-data-name-control'}
@@ -61,7 +72,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>IDNP</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails._id}
+                            value={clientDetails._id}
                             name="idnp"
                             onChange={handleInputChange}
                             className={'client-data-contact-control'}
@@ -73,7 +84,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Telefon mobil</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.tel}
+                            value={clientDetails.tel}
                             name="tel"
                             onChange={handleInputChange}
                             className={'client-data-contact-control'}
@@ -85,7 +96,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Email</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.email}
+                            value={clientDetails.email}
                             name="firstName"
                             onChange={handleInputChange}
                             className={'client-data-contact-control'}
@@ -99,7 +110,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Data nasterii</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.birthday}
+                            value={clientDetails.birthday}
                             name="birthday"
                             className={'client-data-pers-info-control'}
                             disabled={true}
@@ -110,7 +121,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Nationalitate</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.nationality}
+                            value={clientDetails.nationality}
                             name="nationality"
                             className={'client-data-pers-info-control'}
                             disabled={true}
@@ -121,7 +132,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Sex</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.gender}
+                            value={clientDetails.gender}
                             name="gender"
                             className={'client-data-pers-info-control'}
                             disabled={true}
@@ -134,7 +145,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Numele angajatorului</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.employer}
+                            value={clientDetails.employer}
                             name="employer"
                             onChange={handleInputChange}
                             className={'client-data-emp-control'}
@@ -146,7 +157,7 @@ export default function ClientPersonalDataBox() {
                         <Form.Label className={'ms-1'}>Functie</Form.Label>
                         <Form.Control
                             type={'text'}
-                            placeholder={clientDetails.function}
+                            value={clientDetails.function}
                             name="function"
                             onChange={handleInputChange}
                             className={'client-data-emp-control'}
@@ -157,8 +168,8 @@ export default function ClientPersonalDataBox() {
                     <Form.Group className={'client-data-form-group'}>
                         <Form.Label className={'ms-1'}>Venit mediu</Form.Label>
                         <Form.Control
-                            type={'number'}
-                            placeholder={clientDetails.avgSalary.toLocaleString('en-US')}
+                            type={'text'}
+                            value={clientDetails.avgSalary.toLocaleString('en-US')}
                             name="avgSalary"
                             onChange={handleInputChange}
                             className={'client-data-emp-control'}
@@ -177,20 +188,34 @@ export default function ClientPersonalDataBox() {
                             className={'client-pass-pic'}
                             style={{width: '90%'}}
                             disabled={isDisabled}
+                            required
                         />
                     </Form.Group>
                 </div>
-                <div className={'d-flex justify-content-end mt-4 me-4'}>
+                <div className={'d-flex justify-content-end mt-4 me-4'} key={renderKey}>
                     <Button variant={"light"} className={'border-0 bg-transparent me-4 client-btn'}
-                            onClick={handleEditClick}>
+                            onClick={handleEditClick} disabled={!isDataApproved}>
                         <FontAwesomeIcon icon={faPen}/>
                     </Button>
-                    <Button variant={"light"} className={'border-0 bg-transparent client-btn'}>
-                        <FontAwesomeIcon fontVariant={'solid'} icon={faCircleCheck} className={'me-2'}/>
-                        Actualizare
-                    </Button>
+                    {isDataApproved &&
+                        <Button variant={"light"} className={'border-0 bg-transparent client-btn'}
+                                type={"submit"} disabled={isDisabled}>
+                            <FontAwesomeIcon fontVariant={'solid'} icon={faCircleCheck} className={'me-2'}/>
+                            Actualizare
+                        </Button>
+                    }
+                    {!isDataApproved &&
+                        <Button variant={"light"} className={'border-0 bg-transparent client-btn'} disabled={true}>
+                            <FontAwesomeIcon fontVariant={'solid'} icon={faEllipsis} className={'me-2'}/>
+                            <span style={{fontSize: '90%'}}>Waiting for approval</span>
+                        </Button>
+                    }
                 </div>
             </Form>
+            <ConfirmUpdatePersonalDataModal show={showConfirmUpdateModal}
+                                            onHide={handleConfirmUpdateClose}
+                                            handleRerender={handleRerender}
+                                            clientDetails={clientDetails}/>
         </>
     )
 }
