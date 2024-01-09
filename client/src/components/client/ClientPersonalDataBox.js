@@ -11,9 +11,23 @@ export default function ClientPersonalDataBox() {
     const [isDisabled, setIsDisabled] = useState(true);
     const handleEditClick = () => setIsDisabled(!isDisabled);
     const {clientDetails, setClientDetails, isDataApproved} = useCurrentClient(renderKey);
+    const [modifiedClientDetails, setModifiedClientDetails] = useState(clientDetails)
 
     const [showConfirmUpdateModal, setShowConfirmUpdateModal] = useState(false);
     const handleConfirmUpdateShow = (event) => {
+        let modifiedClientDetails;
+        if (typeof clientDetails.avgSalary === 'string') {
+            modifiedClientDetails = {
+                ...clientDetails,
+                avgSalary: parseInt(clientDetails.avgSalary.replace(/,/g, ''))
+            }
+        } else {
+            modifiedClientDetails = {
+                ...clientDetails
+            }
+        }
+        setModifiedClientDetails(modifiedClientDetails);
+
         event.preventDefault();
         setShowConfirmUpdateModal(true);
         handleEditClick();
@@ -76,7 +90,7 @@ export default function ClientPersonalDataBox() {
                             name="idnp"
                             onChange={handleInputChange}
                             className={'client-data-contact-control'}
-                            disabled={isDisabled}
+                            disabled={true}
                             required
                         />
                     </Form.Group>
@@ -215,7 +229,7 @@ export default function ClientPersonalDataBox() {
             <ConfirmUpdatePersonalDataModal show={showConfirmUpdateModal}
                                             onHide={handleConfirmUpdateClose}
                                             handleRerender={handleRerender}
-                                            clientDetails={clientDetails}/>
+                                            clientDetails={modifiedClientDetails}/>
         </>
     )
 }

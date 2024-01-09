@@ -7,7 +7,7 @@ import {useCurrentRole} from "../hooks/useCurrentRole";
 export default function NavigationBar(){
     const location = useLocation();
     const activeKey = location.pathname;
-    const {isClient} = useCurrentRole();
+    const {isClient, isOfficer} = useCurrentRole();
 
     return(
         <Nav fill variant="tabs" defaultActiveKey={activeKey} className="custom-nav">
@@ -26,6 +26,11 @@ export default function NavigationBar(){
             {isClient &&
                 <Nav.Item>
                     <Nav.Link href={`${RoutesEnum.clientDashboard}`}>Cabinet Personal</Nav.Link>
+                </Nav.Item>
+            }
+            {isOfficer &&
+                <Nav.Item>
+                    <Nav.Link href={`${RoutesEnum.officerDashboard}`}>Management</Nav.Link>
                 </Nav.Item>
             }
         </Nav>

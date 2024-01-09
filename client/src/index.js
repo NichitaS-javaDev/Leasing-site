@@ -10,6 +10,7 @@ import FarmEquipmentPage from "./pages/FarmEquipmentPage";
 import LoginPage from "./pages/LoginPage";
 import {RoutesEnum} from "./components/enum/RoutesEnum";
 import ClientDashboard from "./pages/ClientDashboard";
+import OfficerDashboard from "./pages/OfficerDashboard";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,7 @@ root.render(
                 <Route path={`${RoutesEnum.farmEquipment}`} element={<FarmEquipmentPage/>}></Route>
                 <Route path={`${RoutesEnum.login}`} element={<LoginPage/>}></Route>
                 <Route path={`${RoutesEnum.clientDashboard}`} element={<ClientDashboard/>}></Route>
+                <Route path={`${RoutesEnum.officerDashboard}`} element={<OfficerDashboard/>}></Route>
             </Routes>
         </BrowserRouter>
     </React.Fragment>

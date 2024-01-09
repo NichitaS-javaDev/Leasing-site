@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {getClientByUsername} from "../api/client";
+import {getCurrentUsername} from "../api/user";
 
 export function useCurrentClient(renderKey) {
     const [clientDetails, setClientDetails] = useState({
@@ -22,17 +23,14 @@ export function useCurrentClient(renderKey) {
 
     const fetchClientData = async () => {
         try {
-            const response = await getClientByUsername('client');
+            const currentUser = await getCurrentUsername();
+            const response = await getClientByUsername(currentUser);
             if (response.data.profileStatus === 'pending') setIsDataApproved(false)
 
             setClientDetails(response.data)
         } catch (error) {
         }
     }
-
-    // useEffect(() => {
-    //     fetchClientData();
-    // }, [])
 
     useEffect(() => {
         fetchClientData();

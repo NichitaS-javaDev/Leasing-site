@@ -36,6 +36,19 @@ export const getCurrentUserRole = async () => {
     }
 };
 
+export const getCurrentUsername = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL()}/currentUsername`, {
+            withCredentials: true
+        });
+
+        return response.data.username;
+    } catch (error) {
+        console.error('Error fetching username:', error);
+        throw error;
+    }
+};
+
 export const getIsAuthorized = async () => {
     try {
         return await axios.get(`${BASE_URL()}/isAuthorized`, {

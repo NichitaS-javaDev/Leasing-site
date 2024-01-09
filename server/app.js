@@ -47,7 +47,7 @@ app.post('/login', async (req, res) => {
         return res.status(401).json({ message: 'Invalid username or password' });
     }
 
-    req.session.user = {role: user.role};
+    req.session.user = {role: user.role, username: user.username};
 
     res.send();
 });
@@ -62,7 +62,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/currentUserRole', async (req, res) => {
-    if (req.session.user){
+    if (req.session.user) {
         const userRole = req.session.user.role;
         res.json({role: userRole});
     } else {
@@ -70,8 +70,17 @@ app.get('/currentUserRole', async (req, res) => {
     }
 });
 
+app.get('/currentUsername', async (req, res) => {
+    if (req.session.user) {
+        const username = req.session.user.username;
+        res.json({username: username});
+    } else {
+        res.json({username: undefined});
+    }
+});
+
 app.get('/isAuthorized', async (req, res) => {
-    if (req.session.user){
+    if (req.session.user) {
         res.json({isAuthorized: true});
     } else {
         res.json({isAuthorized: false});
