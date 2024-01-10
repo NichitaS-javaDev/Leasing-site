@@ -42,7 +42,7 @@ export default function ConfirmDeleteAModal(props) {
             </Modal.Body>
             <Modal.Footer className={'border-top-0'}>
                 <Button variant={'light'} onClick={props.onHide}>No, cancel</Button>
-                <Button variant={'danger'} onClick={handleDelete}>Yes. delete</Button>
+                <Button variant={'danger'} onClick={handleDelete}>Yes, delete</Button>
             </Modal.Footer>
         </Modal>
     )
