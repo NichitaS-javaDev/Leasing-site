@@ -4,6 +4,7 @@ import {generateContract} from "../../api/contract";
 import {RoutesEnum} from "../enum/RoutesEnum";
 import {useCalculateMonthlyPayment} from "../../hooks/useCalculateMonthlyPayment";
 import {LeasingItemType} from "../enum/LeasingItemTypeEnum";
+import {getCurrentUsername} from "../../api/user";
 
 export default function ConfirmContractGenerationModal({
                                                            item,
@@ -34,6 +35,7 @@ export default function ConfirmContractGenerationModal({
     }
 
     const handleGenerateContractBtn = async () => {
+        const username = await getCurrentUsername();
         if (itemLocation === RoutesEnum.cars) {
             try {
                 const response = await generateContract({
@@ -45,7 +47,8 @@ export default function ConfirmContractGenerationModal({
                     downPayment: downPayment,
                     interestRate: interestRates.carRate,
                     term: term,
-                    insurance: insurance
+                    insurance: insurance,
+                    owner: username
                 });
                 onHide();
                 window.open(response.data, '_self');
