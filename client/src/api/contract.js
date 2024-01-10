@@ -26,9 +26,9 @@ export const viewContract = async (docId) => {
     }
 }
 
-export const getAllContracts = async () => {
+export const getAllContractsByUsername = async (username) => {
     try {
-        return await axios.get(`${BASE_URL()}/secure/contract`, {
+        return await axios.get(`${BASE_URL()}/secure/contract/${username}`, {
             withCredentials: true
         })
     } catch (error) {

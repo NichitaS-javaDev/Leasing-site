@@ -7,6 +7,7 @@ const contractSchema = new mongoose.Schema({
     paidAmount: Number,
     monthlyPayment: Number,
     docId: String,
+    owner: String,
     img: String
 });
 

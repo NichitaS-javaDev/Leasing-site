@@ -5,9 +5,10 @@ const axios = require("axios");
 const Contract = require("../../model/Contract");
 const Car = require("../../model/Car");
 
-router.get('/', async function (req, res) {
+router.get('/:username', async function (req, res) {
+    const {username} = req.params;
     try {
-        const contracts = await Contract.find();
+        const contracts = await Contract.find({'owner': username});
         res.json(contracts);
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -164,6 +165,7 @@ router.post('/generate', async (req, res) => {
             paidAmount: car.downPayment,
             monthlyPayment: car.monthlyPayment,
             docId: docId,
+            owner: car.owner,
             img: contractCar.img
         }
 

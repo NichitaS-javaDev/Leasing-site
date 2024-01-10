@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import Card from "react-bootstrap/Card";
-import {getAllContracts, viewContract} from "../../api/contract";
+import {getAllContractsByUsername, viewContract} from "../../api/contract";
 import {Button, ProgressBar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCreditCard, faExpand} from "@fortawesome/free-solid-svg-icons";
 import ContractPaymentModal from "./ContractPaymentModal";
+import {getCurrentUsername} from "../../api/user";
 
 export default function ClientContractsBox() {
     const [contracts, setContracts] = useState([]);
@@ -39,8 +40,9 @@ export default function ClientContractsBox() {
 
     useEffect(() => {
         const fetchContracts = async () => {
+            const username = await getCurrentUsername();
             try {
-                const response = await getAllContracts();
+                const response = await getAllContractsByUsername(username);
                 setContracts(response.data);
             } catch (error) {
                 // TODO: Handle error
