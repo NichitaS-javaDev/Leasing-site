@@ -28,7 +28,17 @@ export const viewContract = async (docId) => {
 
 export const getAllContractsByUsername = async (username) => {
     try {
-        return await axios.get(`${BASE_URL()}/secure/contract/${username}`, {
+        return await axios.get(`${BASE_URL()}/secure/contract/user/${username}`, {
+            withCredentials: true
+        })
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getAllContractsByStatus = async (status) => {
+    try {
+        return await axios.get(`${BASE_URL()}/secure/contract/status/${status}`, {
             withCredentials: true
         })
     } catch (error) {

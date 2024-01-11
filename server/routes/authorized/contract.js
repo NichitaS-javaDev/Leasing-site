@@ -1,11 +1,27 @@
+require('dotenv').config();
 const express = require("express");
 const router = express.Router();
 const uuid = require("uuid");
 const axios = require("axios");
 const Contract = require("../../model/Contract");
 const Car = require("../../model/Car");
+const BOLD_SIGN_URL = process.env.BOLDSIGN_BASE_URL;
+const headers = {
+    'X-API-KEY': process.env.BOLDSIGN_API_KEY,
+    'Content-Type': 'application/json',
+};
 
-router.get('/:username', async function (req, res) {
+router.get('/status/:status', async function (req, res) {
+    const {status} = req.params;
+    try {
+        const contracts = await Contract.find({'status': status});
+        res.json(contracts);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
+
+router.get('/user/:username', async function (req, res) {
     const {username} = req.params;
     try {
         const contracts = await Contract.find({'owner': username});
@@ -13,7 +29,7 @@ router.get('/:username', async function (req, res) {
     } catch (error) {
         res.status(500).json({message: error.message});
     }
-});
+})
 
 router.get('/view/:docId', async function (req, res) {
     const BOLD_SIGN_URL = process.env.BOLDSIGN_BASE_URL
@@ -58,13 +74,7 @@ router.put('/:id', async function (req, res) {
 })
 
 router.post('/generate', async (req, res) => {
-    const BOLD_SIGN_URL = process.env.BOLDSIGN_BASE_URL
     const sendUrl = `${BOLD_SIGN_URL}/template/send`;
-    const embedSignUrl = `${BOLD_SIGN_URL}/document/getEmbeddedSignLink`;
-    const headers = {
-        'X-API-KEY': process.env.BOLDSIGN_API_KEY,
-        'Content-Type': 'application/json',
-    };
 
     const car = req.body;
 
@@ -149,12 +159,8 @@ router.post('/generate', async (req, res) => {
         });
         const docId = response.data.documentId;
 
-        const redirectUrl = (process.env.CLIENT_HOST).toString().concat('/clientDashboard')
-        const result = await axios.get(embedSignUrl, {
-            headers: headers,
-            params: {documentId: docId, signerEmail: 'nsaharov33@gmail.com', redirectUrl: redirectUrl},
-        });
-        const signUrl = result.data.signLink;
+        const signerEmail = process.env.CLIENT_TEST_EMAIL;
+        const signLink = await signWithEmbeddedSignUrl({docId, signerEmail});
 
         const contractCar = await Car.findOne({'_id': car._id});
 
@@ -166,15 +172,40 @@ router.post('/generate', async (req, res) => {
             monthlyPayment: car.monthlyPayment,
             docId: docId,
             owner: car.owner,
+            status: "pending",
             img: contractCar.img
         }
 
         await Contract.create({...contractDetails})
 
-        res.json(signUrl)
+        res.json(signLink)
     } catch (error) {
         res.status(500).json({message: error.message});
     }
 })
+
+router.post('/sign', async (req, res) => {
+    const {docId} = req.body;
+    const signerEmail = process.env.OFFICER_TEST_EMAIL;
+
+    const signLink = await signWithEmbeddedSignUrl({docId, signerEmail});
+
+    await Contract.updateOne({_id: docId}, {$set: {status: 'approved'}});
+
+    res.json(signLink);
+})
+
+const signWithEmbeddedSignUrl = async ({docId, signerEmail}) => {
+    const embeddedSignUrl = `${BOLD_SIGN_URL}/document/getEmbeddedSignLink`;
+    const redirectUrl = (process.env.CLIENT_HOST).toString().concat('/clientDashboard')
+
+    const result = await axios.get(embeddedSignUrl, {
+        headers: headers,
+        params: {documentId: docId, signerEmail: signerEmail, redirectUrl: redirectUrl},
+    });
+
+    return result.data.signLink;
+}
+
 
 module.exports = router

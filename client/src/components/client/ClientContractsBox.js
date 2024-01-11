@@ -21,7 +21,6 @@ export default function ClientContractsBox() {
     }
 
     const handleViewContractBtn = async (docId) => {
-
         try {
             const response = await viewContract(docId)
             const pdfDataUrl = `data:application/pdf;base64,${response.data}`;

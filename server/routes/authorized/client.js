@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 router.get('/', async function (req, res) {
     try {
-        const clients = await Client.find({'_id': {$not: /_backup/}, "profileStatus": {$eq: "pending"}})
+        const clients = await Client.find({'_id': {$not: /_backup/}, 'profileStatus': {$eq: 'pending'}})
         res.json(clients)
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -58,7 +58,7 @@ router.put('/approve/:id', async function (req, res) {
         await session.startTransaction();
         const updatedClientData = await Client.findByIdAndUpdate(
             id,
-            {$set: {profileStatus: "approved"}},
+            {$set: {profileStatus: 'approved'}},
             {new: true}
         );
         await Client.findByIdAndRemove(backupId);
@@ -80,7 +80,7 @@ router.put('/reject/:id', async function (req, res) {
         await session.startTransaction();
         await Client.findByIdAndRemove(id);
         let clientDataBackup = await Client.findById(backupId);
-        clientDataBackup = Object.assign({}, clientDataBackup.toObject(), {_id: id, profileStatus: "approved"});
+        clientDataBackup = Object.assign({}, clientDataBackup.toObject(), {_id: id, profileStatus: 'approved'});
         await Client.create(clientDataBackup);
         await Client.findByIdAndRemove(backupId);
         await session.commitTransaction();

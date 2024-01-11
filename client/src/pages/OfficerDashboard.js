@@ -7,6 +7,7 @@ import React, {useState} from "react";
 import {signOut} from "../api/user";
 import {RoutesEnum} from "../components/enum/RoutesEnum";
 import ClientsDataUpdateRequestsBox from "../components/officer/ClientsDataUpdateRequestsBox";
+import SliderContractsDashBox from "../components/officer/SliderContractsDashBox";
 
 export default function OfficerDashboard() {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function OfficerDashboard() {
         updateRequests: 'updateRequests',
         contractsToApprove: 'contractsToApprove'
     }
-    const [renderedCmp, setRenderedCmp] = useState(Buttons.updateRequests);
+    const [renderedCmp, setRenderedCmp] = useState(Buttons.contractsToApprove);
 
     const handleUpdateRequestsBtnClick = () => {
         setRenderedCmp(Buttons.updateRequests)
@@ -61,7 +62,7 @@ export default function OfficerDashboard() {
                         <ClientsDataUpdateRequestsBox/>
                     </div> :
                     <div className={"mt-1 client-contracts-box"}>
-                        {/*<ClientsDataUpdateRequestsBox/>*/}
+                        <SliderContractsDashBox/>
                     </div>
                 }
             </div>
