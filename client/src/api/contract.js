@@ -16,6 +16,17 @@ export const generateContract = async (car) => {
     }
 }
 
+export const signContract = async (docId) => {
+    try {
+        return await axios.post(`${BASE_URL()}/secure/contract/sign`, {
+            docId: docId,
+            signerEmail: 'nichita.saharov@isa.utm.md'
+        }, {withCredentials: true})
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const viewContract = async (docId) => {
     try {
         return await axios.get(`${BASE_URL()}/secure/contract/view/${docId}`, {

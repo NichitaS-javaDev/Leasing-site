@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {viewContract} from "../../api/contract";
+import {signContract, viewContract} from "../../api/contract";
 import Card from "react-bootstrap/Card";
 import {Button} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -38,7 +38,14 @@ export default function ContractBox({contract}) {
                         src='${pdfDataUrl}'>
                 </iframe>`);
         } catch (error) {
+        }
+    }
 
+    const handleSignContractBtn = async (docId) => {
+        try {
+            const response = await signContract(docId);
+            window.open(response.data, '_self');
+        } catch (error) {
         }
     }
 
@@ -68,7 +75,7 @@ export default function ContractBox({contract}) {
                     </Button>
                     {!isApproved(contract.status) &&
                         <Button variant={'light'} className={'admin_btn'}>
-                            <FontAwesomeIcon icon={faCheck} /*onClick={() => handleModalOpen(contract)}*//>
+                            <FontAwesomeIcon icon={faCheck} onClick={() => handleSignContractBtn(contract.docId)}/>
                         </Button>
                     }
                 </div>

@@ -87,69 +87,75 @@ router.post('/generate', async (req, res) => {
                 existingFormFields: [
                     {
                         id: 'name',
-                        value: car.clientName,
+                        value: car.clientName
                     },
                     {
                         id: 'model',
-                        value: car.model,
+                        value: car.model
                     },
                     {
                         id: 'config',
-                        value: car.description,
+                        value: car.description
                     },
                     {
                         id: 'vin',
-                        value: uuid.v4(),
+                        value: uuid.v4()
                     },
                     {
                         id: 'price',
-                        value: car.price,
+                        value: car.price
                     },
                     {
                         id: 'downPayment',
-                        value: car.downPayment,
+                        value: car.downPayment
                     },
                     {
                         id: 'totalPrice',
-                        value: car.totalPrice,
+                        value: car.totalPrice
                     },
                     {
                         id: 'retailPrice',
-                        value: car.price,
+                        value: car.price
                     },
                     {
                         id: 'agreedPrice',
-                        value: car.price,
+                        value: car.price
                     },
                     {
                         id: 'amortizedAmount',
-                        value: car.monthlyPayment,
+                        value: car.monthlyPayment
                     },
                     {
                         id: 'interestRate',
-                        value: car.interestRate,
+                        value: car.interestRate
                     },
                     {
                         id: 'casco',
-                        value: car.insurance,
+                        value: car.insurance
                     },
                     {
                         id: 'months',
-                        value: car.term,
+                        value: car.term
                     },
                     {
                         id: 'lessee',
-                        value: car.clientName,
+                        value: car.clientName
                     }
-                ],
+                ]
             },
             {
                 roleIndex: 2,
-                signerName: 'name',
+                signerName: 'Leasing Officer',
                 signerEmail: 'nichita.saharov@isa.utm.md',
-            },
+                existingFormFields: [
+                    {
+                        id: 'lessor',
+                        value: 'Leasing Officer'
+                    }
+                ]
+            }
         ],
-        disableEmails: true,
+        disableEmails: true
     };
 
     try {
@@ -160,7 +166,8 @@ router.post('/generate', async (req, res) => {
         const docId = response.data.documentId;
 
         const signerEmail = process.env.CLIENT_TEST_EMAIL;
-        const signLink = await signWithEmbeddedSignUrl({docId, signerEmail});
+        const redirectUrl = (process.env.CLIENT_HOST).toString().concat('/clientDashboard')
+        const signLink = await signWithEmbeddedSignUrl({docId, signerEmail, redirectUrl});
 
         const contractCar = await Car.findOne({'_id': car._id});
 
@@ -187,17 +194,17 @@ router.post('/generate', async (req, res) => {
 router.post('/sign', async (req, res) => {
     const {docId} = req.body;
     const signerEmail = process.env.OFFICER_TEST_EMAIL;
+    const redirectUrl = (process.env.CLIENT_HOST).toString().concat('/officerDashboard');
 
-    const signLink = await signWithEmbeddedSignUrl({docId, signerEmail});
+    const signLink = await signWithEmbeddedSignUrl({docId, signerEmail, redirectUrl});
 
-    await Contract.updateOne({_id: docId}, {$set: {status: 'approved'}});
+    await Contract.updateOne({docId: docId}, {$set: {status: 'approved'}});
 
     res.json(signLink);
 })
 
-const signWithEmbeddedSignUrl = async ({docId, signerEmail}) => {
+const signWithEmbeddedSignUrl = async ({docId, signerEmail, redirectUrl}) => {
     const embeddedSignUrl = `${BOLD_SIGN_URL}/document/getEmbeddedSignLink`;
-    const redirectUrl = (process.env.CLIENT_HOST).toString().concat('/clientDashboard')
 
     const result = await axios.get(embeddedSignUrl, {
         headers: headers,
@@ -206,6 +213,5 @@ const signWithEmbeddedSignUrl = async ({docId, signerEmail}) => {
 
     return result.data.signLink;
 }
-
 
 module.exports = router

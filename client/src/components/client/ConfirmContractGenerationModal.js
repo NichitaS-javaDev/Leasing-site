@@ -31,7 +31,8 @@ export default function ConfirmContractGenerationModal({
     }, [])
 
     const calculateTotalPrice = () => {
-        return (monthlyPayment * term + downPayment).toFixed(2)
+        /// temporal solution. error with types
+        return (monthlyPayment * term + (downPayment * 1)).toFixed(2)
     }
 
     const handleGenerateContractBtn = async () => {
@@ -59,7 +60,6 @@ export default function ConfirmContractGenerationModal({
 
     return (
         <Modal show={show} size='lg' aria-labelledby="contained-modal-title-center" centered style={{fontSize: 17}}>
-            {/*<Form onSubmit={handleGenerateContractBtn}>*/}
                 <Modal.Body>
                     <span>Are you sure you want to enter into a leasing agreement for a period of  <input
                         type={"number"}
@@ -85,7 +85,6 @@ export default function ConfirmContractGenerationModal({
                     <Button variant={'light'} onClick={onHide}>Cancel</Button>
                     <Button variant={'success'} onClick={handleGenerateContractBtn}>Generate</Button>
                 </Modal.Footer>
-            {/*</Form>*/}
         </Modal>
     )
 }
