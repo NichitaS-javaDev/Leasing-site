@@ -22,17 +22,17 @@ app.use(cors({
     origin: process.env.CLIENT_HOST,
     credentials: true,
 }))
+app.use(cookieParser(process.env.SESSION_SECRET_KEY));
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "PROD",
-        sameSite: process.env.NODE_ENV === "PROD" ? "none" : "lax"
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     }
 }));
-app.use(cookieParser(process.env.SESSION_SECRET_KEY));
 app.use(helmet())
 
 app.use('/', unauthorizedRouter);
