@@ -25,7 +25,12 @@ app.use(cors({
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "PROD",
+        sameSite: process.env.NODE_ENV === "PROD" ? "none" : "lax"
+    }
 }));
 app.use(cookieParser(process.env.SESSION_SECRET_KEY));
 app.use(helmet())

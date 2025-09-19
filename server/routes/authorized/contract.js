@@ -85,7 +85,7 @@ router.post('/generate', async (req, res) => {
             {
                 roleIndex: 1,
                 signerName: car.clientName,
-                signerEmail: 'nsaharov33@gmail.com',
+                signerEmail: process.env.CLIENT_TEST_EMAIL,
                 existingFormFields: [
                     {
                         id: 'name',
@@ -148,7 +148,7 @@ router.post('/generate', async (req, res) => {
             {
                 roleIndex: 2,
                 signerName: 'Leasing Officer',
-                signerEmail: 'nichita.saharov@isa.utm.md',
+                signerEmail: process.env.OFFICER_TEST_EMAIL,
                 existingFormFields: [
                     {
                         id: 'lessor',
