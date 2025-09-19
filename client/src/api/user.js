@@ -1,10 +1,7 @@
 import axios from "axios";
 import {useServerHost} from "../hooks/useServerHost";
 
-const BASE_URL = () => {
-    const {BASE_URL} = useServerHost()
-    return BASE_URL;
-}
+const BASE_URL = () => useServerHost();
 
 // const calculatePayloadSize = (data) => {
 //     const dataSizeInBytes = new Blob([JSON.stringify(data)]).size;

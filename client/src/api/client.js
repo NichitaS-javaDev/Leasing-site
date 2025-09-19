@@ -1,10 +1,7 @@
 import axios from 'axios';
 import {useServerHost} from "../hooks/useServerHost";
 
-const BASE_URL = () => {
-    const {BASE_URL} = useServerHost()
-    return BASE_URL;
-}
+const BASE_URL = () => useServerHost();
 
 export const getAllClients = async () => {
     try {

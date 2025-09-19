@@ -9,7 +9,7 @@ const unauthorizedRouter = require('./routes/unauthorized')
 const authorizedRouter = require('./routes/authorized')
 const User = require("./model/User");
 
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 require('./config/db');
 
 const app = express();
