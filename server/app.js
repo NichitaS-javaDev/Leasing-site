@@ -30,10 +30,14 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        domain: ".onrender.com"
     }
 }));
-app.use(helmet())
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+    crossOriginOpenerPolicy: false
+}))
 
 app.use('/', unauthorizedRouter);
 app.use('/secure', authorizedRouter)
