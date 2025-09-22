@@ -58,7 +58,17 @@ app.post('/login', async (req, res) => {
 
     req.session.user = {role: user.role, username: user.username};
 
-    res.send();
+    req.session.save(err => {
+        if (err) {
+            console.error("❌ Session save failed:", err);
+            return res.status(500).json({ message: "Session error" });
+        }
+        res.json({
+            message: "Login successful",
+            role: user.role,
+            username: user.username
+        });
+    });
 });
 
 app.get('/logout', (req, res) => {
