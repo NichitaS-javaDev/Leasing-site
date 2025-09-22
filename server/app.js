@@ -18,6 +18,7 @@ app.use(logger('dev'));
 app.use(express.json({limit: '1mb'}));
 app.use(express.urlencoded({ limit: '1mb', extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.set("trust proxy", 1);
 app.use(cors({
     origin: process.env.CLIENT_HOST,
     credentials: true,
