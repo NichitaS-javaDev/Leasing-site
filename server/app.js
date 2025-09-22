@@ -30,11 +30,11 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        domain: ".onrender.com"
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     }
 }));
 app.use(helmet({
+    contentSecurityPolicy: false,
     crossOriginResourcePolicy: false,
     crossOriginOpenerPolicy: false
 }))
